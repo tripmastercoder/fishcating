@@ -176,7 +176,7 @@ export const values = {
   films: {
     'Pulp Fiction': ['Amanda Plummer', 'Bruce Willis', 'Christopher Walken', 'Eric Stoltz', 'Harvey Keitel', 'John Travolta', 'Maria de Medeiros', 'Rosanna Arquette', 'Samuel L. Jackson', 'Tim Roth', 'Uma Thurman', 'Ving Rhames'],
     'The Dark Knight': ['Aaron Eckhart', 'Christian Bale', 'Gary Oldman', 'Heath Ledger', 'Maggie Gyllenhaal', 'Michael Caine', 'Morgan Freeman'],
-    'Inception': ['Cillian Murphy', 'Elliot Page[a]', 'Joseph Gordon-Levitt', 'Leonardo DiCaprio', 'Marion Cotillard', 'Michael Caine', 'Ken Watanabe', 'Tom Berenger', 'Tom Hardy']
+    'Inception': ['Cillian Murphy', 'Elliot Page', 'Joseph Gordon-Levitt', 'Leonardo DiCaprio', 'Marion Cotillard', 'Michael Caine', 'Ken Watanabe', 'Tom Berenger', 'Tom Hardy']
     // Add more films as needed
   },
 
