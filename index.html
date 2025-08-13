@@ -247,12 +247,18 @@ function updateCounter(){
 function getQuestionsByAnswerCount(min,max){
   return questions.filter(q => {
     let answers = [];
-    if(q.text && q.answers){ answers = q.answers; } 
+    if(q.text && q.answers){
+      answers = q.answers; // <- this ensures text questions are included
+    } 
     else if(q.categoryKey && typeof values[q.categoryKey]==="object" && !Array.isArray(values[q.categoryKey])){
       const keys = Object.keys(values[q.categoryKey]);
       const maxKey = keys.reduce((a,b) => values[q.categoryKey][a].length > values[q.categoryKey][b].length ? a : b);
       answers = values[q.categoryKey][maxKey];
-    } else if(Array.isArray(values[q.categoryKey])) { answers = values[q.categoryKey]; }
+    } 
+    else if(q.categoryKey && Array.isArray(values[q.categoryKey])) {
+      answers = values[q.categoryKey];
+    }
+
     return answers.length >= min && answers.length <= max;
   });
 }
