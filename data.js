@@ -164,7 +164,7 @@ export const values = {
   },
 
   oscarCategories: {
-    'Best Picture': ['Moonlight', 'Parasite', 'No Country for Old Men', 'The Hurt Locker', 'Nomadland', 'The Lord of the Rings: The Return of the King', '12 Years a Slave', 'Million Dollar Baby', 'The Departed', 'Gladiator', 'Slumdog Millionaire', 'Everything Everywhere All at Once', 'Birdman', 'The Shape of Water', 'The Artist', 'Oppenheimer', 'Spotlight', 'The King\'s Speech', 'Crash', 'A Beautiful Mind', 'Chicago', 'Argo', 'Green Book', 'CODA', 'anora'
+    'Best Picture': ['12 Years a Slave', 'A Beautiful Mind', 'Anora', 'Argo', 'Birdman', 'Chicago', 'CODA', 'Crash', 'Everything Everywhere All at Once', 'Gladiator', 'Green Book', 'Million Dollar Baby', 'Moonlight', 'Nomadland', 'No Country for Old Men', 'Oppenheimer', 'Parasite', 'Slumdog Millionaire', 'Spotlight', 'The Artist', 'The Departed', 'The Hurt Locker', 'The King’s Speech', 'The Lord of the Rings: The Return of the King', 'The Shape of Water'
 ],
     'Best Actor': ['Kevin Spacey', 'Russell Crowe', 'Denzel Washington', 'Adrien Brody', 'Sean Penn', 'Jamie Foxx', 'Philip Seymour Hoffman', 'Forest Whitaker', 'Daniel Day-Lewis', 'Sean Penn', 'Jeff Bridges', 'Colin Firth', 'Jean Dujardin', 'Daniel Day-Lewis', 'Matthew McConaughey', 'Eddie Redmayne', 'Leonardo DiCaprio', 'Casey Affleck', 'Gary Oldman', 'Rami Malek', 'Joaquin Phoenix', 'Anthony Hopkins', 'Will Smith', 'Brendan Fraser', 'Cillian Murphy', 'Adrien Brody'
 ],
@@ -174,16 +174,16 @@ export const values = {
   },
 
   films: {
-    'Pulp Fiction': ['John Travolta', 'Samuel L. Jackson', 'Uma Thurman', 'Harvey Keitel'],
-    'The Dark Knight': ['Christian Bale', 'Heath Ledger', 'Aaron Eckhart', 'Maggie Gyllenhaal'],
-    'Inception': ['Leonardo DiCaprio', 'Marion Cotillard', 'Tom Hardy', 'Ellen Page']
+    'Pulp Fiction': ['Amanda Plummer', 'Bruce Willis', 'Christopher Walken', 'Eric Stoltz', 'Harvey Keitel', 'John Travolta', 'Maria de Medeiros', 'Rosanna Arquette', 'Samuel L. Jackson', 'Tim Roth', 'Uma Thurman', 'Ving Rhames'],
+    'The Dark Knight': ['Aaron Eckhart', 'Christian Bale', 'Gary Oldman', 'Heath Ledger', 'Maggie Gyllenhaal', 'Michael Caine', 'Morgan Freeman'],
+    'Inception': ['Cillian Murphy', 'Elliot Page[a]', 'Joseph Gordon-Levitt', 'Leonardo DiCaprio', 'Marion Cotillard', 'Michael Caine', 'Ken Watanabe', 'Tom Berenger', 'Tom Hardy']
     // Add more films as needed
   },
 
   tvShows: {
-    'Breaking Bad': ['Bryan Cranston', 'Aaron Paul', 'Anna Gunn', 'RJ Mitte'],
-    'Game of Thrones': ['Peter Dinklage', 'Lena Headey', 'Emilia Clarke', 'Kit Harington'],
-    'The Office': ['Steve Carell', 'John Krasinski', 'Jenna Fischer', 'Rainn Wilson']
+    'Breaking Bad': ['Aaron Paul', 'Anna Gunn', 'Betsy Brandt', 'Bob Odenkirk', 'Bryan Cranston', 'Dean Norris', 'Giancarlo Esposito', 'Jonathan Banks', 'Jesse Plemons', 'Laura Fraser', 'RJ Mitte'],
+    'The Office (US)': ['Amy Ryan', 'Angela Kinsey', 'B. J. Novak', 'Brian Baumgartner', 'Catherine Tate', 'Clark Duke', 'Craig Robinson', 'Creed Bratton', 'David Denman', 'Ed Helms', 'Ellie Kemper', 'Jake Lacy', 'James Spader', 'Jenna Fischer', 'John Krasinski', 'Kate Flannery', 'Leslie David Baker', 'Melora Hardin', 'Mindy Kaling', 'Oscar Nunez', 'Paul Lieberstein', 'Phyllis Smith', 'Rainn Wilson', 'Steve Carell', 'Zach Woods'
+]
     // Add more TV shows as needed
   },
 
@@ -201,11 +201,7 @@ export const values = {
   ],
 
   goty: [
-    'The Last of Us Part II (2020)',
-    'Sekiro: Shadows Die Twice (2019)',
-    'God of War (2018)',
-    'The Legend of Zelda: Breath of the Wild (2017)',
-    'Overwatch (2016)'
+    '2003: Star Wars: Knights of the Old Republic', '2004: Half-Life 2', '2005: Resident Evil 4', '2006: Gears of War', '2007: BioShock', '2008: Metal Gear Solid 4', '2009: Uncharted 2: Among Thieves', '2010: Red Dead Redemption', '2011: The Elder Scrolls V: Skyrim', '2012: The Walking Dead', '2013: Grand Theft Auto V', '2014: Dragon Age: Inquisition', '2015: The Witcher 3: Wild Hunt', '2016: Overwatch', '2017: The Legend of Zelda: Breath of the Wild', '2018: God of War', '2019: Sekiro: Shadows Die Twice', '2020: The Last of Us Part II', '2021: It Takes Two', '2022: Elden Ring', '2023: Baldur\'s Gate 3', '2024: Astro Bot'
   ],
 
   topGrossingGames: {
