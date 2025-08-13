@@ -226,7 +226,7 @@ let roundNumber=0;
 
 // Filter questions by answer count
 function getQuestionsByAnswerCount(min,max){
-  return questions.filter(q=>{
+  return questions.filter(q=>{ 
     let answers=[];
     if(q.categoryKey && typeof values[q.categoryKey]==="object" && !Array.isArray(values[q.categoryKey])){
       const keys=Object.keys(values[q.categoryKey]);
