@@ -305,35 +305,37 @@ function startRound() {
 
 // Start a question
 function startQuestion() {
-  if(currentIndex>=roundQuestions.length){ showGameOver(); return; }
+  if(currentIndex >= roundQuestions.length){ showGameOver(); return; }
 
-  const q=roundQuestions[currentIndex];
-  let xVal="";
+  const q = roundQuestions[currentIndex];
+  let xVal = "";
   
   if(q.text && q.answers){
     currentQuestionText = q.text;
     currentAnswers = [...q.answers];
-  } else if(q.categoryKey && typeof values[q.categoryKey]==="object" && !Array.isArray(values[q.categoryKey])){
-    const keys=Object.keys(values[q.categoryKey]);
-    xVal=getRandomItem(keys);
+  } else if(q.categoryKey && typeof values[q.categoryKey] === "object" && !Array.isArray(values[q.categoryKey])){
+    const keys = Object.keys(values[q.categoryKey]);
+    xVal = getRandomItem(keys);
     currentQuestionText = q.template.replace("{X}", xVal);
-    currentAnswers=[...values[q.categoryKey][xVal]];
+    currentAnswers = [...values[q.categoryKey][xVal]];
   } else {
-    xVal="";
+    xVal = "";
     currentQuestionText = q.template ? q.template.replace("{X}", xVal) : "";
-    currentAnswers=Array.isArray(values[q.categoryKey]) ? [...values[q.categoryKey]] : [];
+    currentAnswers = Array.isArray(values[q.categoryKey]) ? [...values[q.categoryKey]] : [];
   }
 
   currentAnswers.sort();
-  revealed=currentAnswers.map(()=>false);
+  revealed = currentAnswers.map(()=>false);
 
-  document.getElementById("question").textContent = `Round ${roundNumber}: ${currentQuestionText}`;
+  document.getElementById("question").textContent = 
+    `Round ${currentIndex + 1}: ${currentQuestionText}`;
+    
   updateCounter();
-  roundNumber = currentIndex + 1;
   document.getElementById("feedback").textContent = "";
   document.getElementById("guess").value = "";
   renderAnswers();
 }
+
 
 // Render answers
 function renderAnswers(){
