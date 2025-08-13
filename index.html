@@ -228,8 +228,9 @@ let roundNumber=0;
 function getQuestionsByAnswerCount(min,max){
   return questions.filter(q => {
     let answers = [];
-    if(q.categoryKey && typeof values[q.categoryKey]==="object" && !Array.isArray(values[q.categoryKey])){
-      // Pick the key with the most answers to filter by
+    if(q.text && q.answers){ // freeform
+      answers = q.answers;
+    } else if(q.categoryKey && typeof values[q.categoryKey]==="object" && !Array.isArray(values[q.categoryKey])){
       const keys = Object.keys(values[q.categoryKey]);
       const maxKey = keys.reduce((a,b) => values[q.categoryKey][a].length > values[q.categoryKey][b].length ? a : b);
       answers = values[q.categoryKey][maxKey];
@@ -254,11 +255,6 @@ roundQuestions = [
   getRandomItem(q11plus)
 ];
 
-  roundQuestions = [
-    getRandomItem(q3to5),
-    getRandomItem(q6to10),
-    getRandomItem(q11to15)
-  ];
 
   currentIndex = 0;
   startQuestion();
@@ -266,24 +262,31 @@ roundQuestions = [
 
 
 // Start a question
-function startQuestion(){
+function startQuestion() {
   if(currentIndex>=roundQuestions.length){
     showGameOver();
     return;
   }
+
   const q=roundQuestions[currentIndex];
   let xVal="";
-  if(q.categoryKey && typeof values[q.categoryKey]==="object" && !Array.isArray(values[q.categoryKey])){
+  
+  if(q.text && q.answers){  // freeform question
+    currentQuestionText = q.text;
+    currentAnswers = [...q.answers];
+  } else if(q.categoryKey && typeof values[q.categoryKey]==="object" && !Array.isArray(values[q.categoryKey])){
     const keys=Object.keys(values[q.categoryKey]);
     xVal=getRandomItem(keys);
+    currentQuestionText = q.template.replace("{X}", xVal);
     currentAnswers=[...values[q.categoryKey][xVal]];
   } else {
     xVal="";
+    currentQuestionText = q.template ? q.template.replace("{X}", xVal) : "";
     currentAnswers=Array.isArray(values[q.categoryKey]) ? [...values[q.categoryKey]] : [];
   }
+
   currentAnswers.sort();
   revealed=currentAnswers.map(()=>false);
-  currentQuestionText=q.template.replace("{X}",xVal);
 
   const roundLabel = `Round ${currentIndex + 1}`;
   document.getElementById("question").textContent = `${roundLabel}: ${currentQuestionText} (${currentAnswers.length} possible answers)`;
