@@ -329,6 +329,7 @@ function startQuestion() {
 
   document.getElementById("question").textContent = `Round ${roundNumber}: ${currentQuestionText}`;
   updateCounter();
+  roundNumber = currentIndex + 1;
   document.getElementById("feedback").textContent = "";
   document.getElementById("guess").value = "";
   renderAnswers();
