@@ -224,5 +224,14 @@ export const questions = [
   { template: 'Cast of {X} TV show', categoryKey: 'tvShows' },
   { template: '21st C Emmy winning shows', categoryKey: 'emmyShows' },
   { template: 'Game of the Year winners', categoryKey: 'goty' },
-  { template: 'Top grossing games (per console)', categoryKey: 'topGrossingGames' }
+  { template: 'Top grossing games (per console)', categoryKey: 'topGrossingGames' },
+  { text: 'Primary colours', answers: ['Red', 'Blue', 'Green']},
+  {text: 'Planets in the Solar System', answers: ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'] },
+  {text: 'Chess pieces', answers: ['King', 'Queen', 'Bishop', 'Knight', 'Rook', 'Pawn'] },
+  { text: 'Planets with rings', answers: ['Saturn', 'Jupiter', 'Uranus', 'Neptune'] },
+  { text: 'Languages with official status in Switzerland', answers: ['German', 'French', 'Italian', 'Romansh'] },
+  { text: 'Ancient Wonders of the World', answers: ['Great Pyramid of Giza', 'Hanging Gardens of Babylon', 'Statue of Zeus', 'Temple of Artemis', 'Mausoleum at Halicarnassus', 'Colossus of Rhodes', 'Lighthouse of Alexandria'] },
+  { text: 'Types of clouds', answers: ['Cirrus', 'Cumulus', 'Stratus', 'Nimbus'] },
+  { text: 'Instruments in a string quartet', answers: ['Violin', 'Viola', 'Cello', 'Double Bass'] },
+  { text: 'Musical clefs', answers: ['Treble', 'Bass', 'Alto', 'Tenor'] }
 ];
