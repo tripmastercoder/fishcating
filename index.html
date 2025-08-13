@@ -116,6 +116,7 @@ button.next-btn {
   background: linear-gradient(135deg, #03dac6, #018786);
   box-shadow: 0 4px 12px rgba(3, 218, 198, 0.6);
 }
+
 button.next-btn:hover {
   background: linear-gradient(135deg, #018786, #03dac6);
   box-shadow: 0 6px 16px rgba(3, 218, 198, 0.8);
@@ -144,24 +145,31 @@ button.next-btn:hover {
   font-size: 0.75rem;
 }
 
-/* Mobile layout for buttons */
+/* Button group layout */
 .button-group {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 5px;
+  flex-direction: column; /* stack top row and next button vertically */
+  align-items: center;
+  gap: 10px;
 }
+
 .button-group .top-buttons {
   display: flex;
-  flex: 1 1 100%;
-  justify-content: center;
-  gap: 5px;
+  gap: 5px; /* spacing between reveal/submit/counter */
+  flex-wrap: wrap;
+  align-items: center;
 }
+
 .button-group .next-btn {
-  flex: 1 1 100%;
+  flex: 0 0 auto;
   max-width: 300px;
 }
 
+#counter {
+  font-weight: 500;
+  color: #bb86fc;
+  font-size: 1rem;
+}
 </style>
 </head>
 <body>
@@ -173,11 +181,14 @@ button.next-btn:hover {
   <input type="text" id="guess" placeholder="Enter your guess" autocomplete="off" />
   <div id="feedback"></div>
 
+  <!-- Button group with counter -->
   <div class="button-group">
     <div class="top-buttons">
       <button id="revealBtn">Reveal Letter</button>
       <button id="submitBtn">Submit</button>
+      <div id="counter">0/0</div>
     </div>
+
     <button id="nextBtn" class="next-btn">Next Question</button>
   </div>
 </div>
@@ -223,55 +234,77 @@ let currentQuestionText="";
 let roundQuestions=[];
 let score=0;
 let roundNumber=0;
+let totalpoints = 0
+
+// Update counter
+function updateCounter(){
+  const correctCount = revealed.filter(r => r).length;
+  const totalAnswers = currentAnswers.length;
+  document.getElementById("counter").textContent = `${correctCount}/${totalAnswers}`;
+}
 
 // Filter questions by answer count
 function getQuestionsByAnswerCount(min,max){
   return questions.filter(q => {
     let answers = [];
-    if(q.text && q.answers){ // freeform
-      answers = q.answers;
-    } else if(q.categoryKey && typeof values[q.categoryKey]==="object" && !Array.isArray(values[q.categoryKey])){
+    if(q.text && q.answers){ answers = q.answers; } 
+    else if(q.categoryKey && typeof values[q.categoryKey]==="object" && !Array.isArray(values[q.categoryKey])){
       const keys = Object.keys(values[q.categoryKey]);
       const maxKey = keys.reduce((a,b) => values[q.categoryKey][a].length > values[q.categoryKey][b].length ? a : b);
       answers = values[q.categoryKey][maxKey];
-    } else if(Array.isArray(values[q.categoryKey])) {
-      answers = values[q.categoryKey];
-    }
+    } else if(Array.isArray(values[q.categoryKey])) { answers = values[q.categoryKey]; }
     return answers.length >= min && answers.length <= max;
   });
 }
 
 // Start a new round
+// Start a new round
 function startRound() {
   roundNumber++;
   score = 0;
+  totalpoints = 0; // reset total points for the round
+
   const q3to5 = getQuestionsByAnswerCount(3,6);
   const q6to10 = getQuestionsByAnswerCount(7,15);
   const q11plus = getQuestionsByAnswerCount(16, Infinity);
 
-roundQuestions = [
-  getRandomItem(q3to5),
-  getRandomItem(q6to10),
-  getRandomItem(q11plus)
-];
+  roundQuestions = [
+    getRandomItem(q3to5),
+    getRandomItem(q6to10),
+    getRandomItem(q11plus)
+  ];
 
-
+  // Compute total points safely
+  roundQuestions.forEach(q => {
+    let answers = [];
+    if (q.answers && Array.isArray(q.answers)) {
+      answers = q.answers;
+    } else if (q.categoryKey && values[q.categoryKey]) {
+      if (Array.isArray(values[q.categoryKey])) {
+        answers = values[q.categoryKey];
+      } else {
+        const keys = Object.keys(values[q.categoryKey]);
+        const maxKey = keys.reduce((a,b) => values[q.categoryKey][a].length > values[q.categoryKey][b].length ? a : b);
+        answers = values[q.categoryKey][maxKey];
+      }
+    }
+    totalpoints += answers.length;
+  });
   currentIndex = 0;
   startQuestion();
 }
 
 
+  
+
 // Start a question
 function startQuestion() {
-  if(currentIndex>=roundQuestions.length){
-    showGameOver();
-    return;
-  }
+  if(currentIndex>=roundQuestions.length){ showGameOver(); return; }
 
   const q=roundQuestions[currentIndex];
   let xVal="";
   
-  if(q.text && q.answers){  // freeform question
+  if(q.text && q.answers){
     currentQuestionText = q.text;
     currentAnswers = [...q.answers];
   } else if(q.categoryKey && typeof values[q.categoryKey]==="object" && !Array.isArray(values[q.categoryKey])){
@@ -288,10 +321,10 @@ function startQuestion() {
   currentAnswers.sort();
   revealed=currentAnswers.map(()=>false);
 
-  const roundLabel = `Round ${currentIndex + 1}`;
-  document.getElementById("question").textContent = `${roundLabel}: ${currentQuestionText} (${currentAnswers.length} possible answers)`;
-  document.getElementById("feedback").textContent="";
-  document.getElementById("guess").value="";
+  document.getElementById("question").textContent = `Round ${roundNumber}: ${currentQuestionText}`;
+  updateCounter();
+  document.getElementById("feedback").textContent = "";
+  document.getElementById("guess").value = "";
   renderAnswers();
 }
 
@@ -328,6 +361,7 @@ function revealNextLetter(){
         let allRevealed=true;
         for(let k=0;k<ans.length;k++){if(ans[k]!==" " && spans[k].textContent==="_"){allRevealed=false;break;}}
         if(allRevealed) revealed[i]=true;
+        updateCounter();
         return;
       }
     }
@@ -353,6 +387,7 @@ function checkGuess(){
     feedback.style.color="#4ade80";
     guessInput.value="";
     renderAnswers();
+    updateCounter();
     if(revealed.every(r=>r)){
       feedback.textContent="🎉 All answers found!";
     }
@@ -370,44 +405,32 @@ function nextCategory(){
 
 // Game over screen
 function showGameOver(){
-  const gameDiv=document.getElementById("game");
-  gameDiv.innerHTML=`<h2>🎮 Game Over</h2>
-    <p>Your score: ${score}</p>
+  const gameDiv = document.getElementById("game");
+  gameDiv.innerHTML = `<h2>🎮 Game Over</h2>
+    <p>Your score: ${score} / ${totalpoints}</p>
     <button id="newGameBtn">Start New Game</button>`;
   document.getElementById("newGameBtn").addEventListener("click",()=>{
-    score = 0;       // reset score
-    roundNumber = 0; // reset round
-    // Restore original game HTML
-    gameDiv.innerHTML=`
-      <div class="question" id="question"></div>
-      <div class="answers" id="answers"></div>
-      <input type="text" id="guess" placeholder="Enter your guess" autocomplete="off" />
-      <div id="feedback"></div>
-      <div class="button-group">
-        <div class="top-buttons">
-          <button id="submitBtn">Submit</button>
-          <button id="revealBtn">Reveal Letter</button>
-        </div>
-        <button id="nextBtn" class="next-btn">Next Question</button>
-      </div>
-    `;
-    // Re-bind all event listeners
-    document.getElementById("submitBtn").addEventListener("click",checkGuess);
-    document.getElementById("nextBtn").addEventListener("click",nextCategory);
-    document.getElementById("revealBtn").addEventListener("click",revealNextLetter);
-    document.getElementById("guess").addEventListener("keydown",e=>{
-      if(e.key==="Enter"){e.preventDefault();checkGuess();}
-    });
-    startRound();
+    score = 0;
+    roundNumber = 0;
+    location.reload(); // simpler way to restart
   });
 }
-
 
 // Event listeners
 document.getElementById("submitBtn").addEventListener("click",checkGuess);
 document.getElementById("nextBtn").addEventListener("click",nextCategory);
 document.getElementById("revealBtn").addEventListener("click",revealNextLetter);
-document.getElementById("guess").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();checkGuess();}});
+document.getElementById("guess").addEventListener("keydown", e => {
+  if(e.key === "Enter") {
+    e.preventDefault();
+    // If all answers are revealed, go to next question
+    if (revealed.every(r => r)) {
+      nextCategory();
+    } else {
+      checkGuess();
+    }
+  }
+});
 
 // Initialize
 startRound();
