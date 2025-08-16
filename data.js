@@ -80,7 +80,7 @@ window.values = {
   topGrossingGames: {
     'PlayStation': ['Gran Turismo', 'Final Fantasy VII', 'Final Fantasy VIII', 'Gran Turismo 2', 'Tekken 3', 'Final Fantasy IX', 'Metal Gear Solid', 'Crash Bandicoot 3: Warped', 'Tomb Raider', 'Resident Evil 3: Nemesis'],
     'Xbox': ['Halo 2', 'Halo: Combat Evolved', 'Fable', 'Grand Theft Auto: San Andreas', 'Tom Clancy\'s Splinter Cell', 'The Elder Scrolls III: Morrowind', 'Grand Theft Auto III', 'Grand Theft Auto: Vice City', 'Need for Speed: Underground 2', 'Madden NFL 2005'],
-    'Nintendo Switch': ['Mario Kart 8 Deluxe', 'Animal Crossing: New Horizons', 'Super Smash Bros. Ultimate', 'The Legend of Zelda: Breath of the Wild', 'Super Mario Odyssey', 'Pokémon Sword and Shield', 'Pokémon Scarlet and Violet', 'The Legend of Zelda: Tears of the Kingdom', 'Super Mario Party', 'New Super Mario Bros. U Deluxe']
+    'Nintendo Switch': ['Mario Kart 8 Deluxe', 'Animal Crossing: New Horizons', 'Super Smash Bros Ultimate', 'The Legend of Zelda: Breath of the Wild', 'Super Mario Odyssey', 'Pokémon Sword and Shield', 'Pokémon Scarlet and Violet', 'The Legend of Zelda: Tears of the Kingdom', 'Super Mario Party', 'New Super Mario Bros. U Deluxe']
   }
 };
 
