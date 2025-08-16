@@ -193,8 +193,11 @@ button.next-btn:hover {
   </div>
 </div>
 
-<script type="module">
-import { values, questions } from './data.js';
+<script src="data.js"></script>
+<script>
+  // Access questions and values globally
+  const values = window.values;
+  const questions = window.questions;
 
 // Normalize string
 function normalize(str) {
