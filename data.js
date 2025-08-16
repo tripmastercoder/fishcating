@@ -1,6 +1,6 @@
 // CATEGORY ANSWERS
 
-export const values = {
+window.values = {
   cities: {
     France: ['Paris', 'Marseille', 'Lyon', 'Toulouse', 'Nice', 'Nantes', 'Montpellier', 'Strasbourg', 'Bordeaux', 'Lille'],
     Japan: ['Tokyo', 'Yokohama', 'Osaka', 'Nagoya', 'Sapporo', 'Kobe', 'Kyoto', 'Fukuoka', 'Kawasaki', 'Saitama'],
@@ -86,7 +86,7 @@ export const values = {
 
 // QUESTION TEMPLATES
 
-export const questions = [
+window.questions = [
   { template: 'Largest cities in {X}', categoryKey: 'cities' },
   { template: 'Countries in {X}', categoryKey: 'countries' },
   { template: 'Films starring {X}', categoryKey: 'actors' },
