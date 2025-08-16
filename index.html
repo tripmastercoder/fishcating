@@ -1,3 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guessing Game - Dark Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background-color: #121212;
+  color: #e0e0e0;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+h1 {
+  font-size: 2rem;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+#game {
+  background-color: #1e1e1e;
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 0.5rem 0 4rem;
+  max-width: 700px;
+  width: 90%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+  text-align: center;
+}
+.question {
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  color: #bb86fc;
+}
+.answers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: pre-line;
+  margin-top: 30px;
+  margin-bottom: 5px;
+}
+.answer {
+  text-align: left;
+  white-space: normal;
+  font-size: 0.9rem;
+  font-family: monospace;
+  letter-spacing: 0.2rem;
+  word-spacing: 0.1rem;
+  color: #cfcccc;
+  margin: 0.5rem 0;
+  user-select: none;
+}
+.answer span {
+  padding: 0 4px;
+  display: inline-block;
+  min-width: 1ch;
+  text-transform: uppercase;
+}
+.answer span.space {
+  padding: 0 0.6rem;
+  min-width: 0.8rem;
+}
+input[type="text"] {
+  padding: 10px 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  width: 80%;
+  max-width: 350px;
+  margin-bottom: 1rem;
+  background-color: #2c2c2c;
+  color: #eee;
+  box-shadow: inset 0 0 5px #000;
+  transition: background-color 0.3s ease;
+}
+input[type="text"]::placeholder {
+  color: #777;
+}
+input[type="text"]:focus {
+  outline: none;
+  background-color: #3d3d3d;
+  box-shadow: 0 0 5px #bb86fc;
+}
+button {
+  background: linear-gradient(135deg, #8a2be2, #5d3fd3);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 5px 5px 10px 5px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 12px rgba(138, 43, 226, 0.6);
+}
+button:hover {
+  background: linear-gradient(135deg, #5d3fd3, #8a2be2);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(138, 43, 226, 0.8);
+}
+button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+button.next-btn {
+  background: linear-gradient(135deg, #03dac6, #018786);
+  box-shadow: 0 4px 12px rgba(3, 218, 198, 0.6);
+}
+
+button.next-btn:hover {
+  background: linear-gradient(135deg, #018786, #03dac6);
+  box-shadow: 0 6px 16px rgba(3, 218, 198, 0.8);
+}
+#feedback {
+  min-height: 1.5em;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.answers.multicolumn {
+  font-size: 0.65rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 8px 12px;
+  justify-items: start;
+  align-items: center;
+  max-height: 45vh;
+  overflow-y: auto;
+}
+.answers.multicolumn .answer {
+  white-space: normal;
+  letter-spacing: 0.1rem;
+  margin: 0.2rem 0;
+  padding-right: 8px;
+  word-break: break-word;
+  font-size: 0.75rem;
+}
+
+/* Button group layout */
+.button-group {
+  display: flex;
+  flex-direction: column; /* stack top row and next button vertically */
+  align-items: center;
+  gap: 10px;
+}
+
+.button-group .top-buttons {
+  display: flex;
+  gap: 5px; /* spacing between reveal/submit/counter */
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.button-group .next-btn {
+  flex: 0 0 auto;
+  max-width: 300px;
+}
+
+#counter {
+  font-weight: 500;
+  color: #bb86fc;
+  font-size: 1rem;
+}
+</style>
+</head>
+<body>
+
+<h1>Guessing Game</h1>
+<div id="game">
+  <div class="question" id="question"></div>
+  <div class="answers" id="answers"></div>
+  <input type="text" id="guess" placeholder="Enter your guess" autocomplete="off" />
+  <div id="feedback"></div>
+
+  <!-- Button group with counter -->
+  <div class="button-group">
+    <div class="top-buttons">
+      <button id="revealBtn">Reveal Letter</button>
+      <button id="submitBtn">Submit</button>
+      <div id="counter">0/0</div>
+    </div>
+
+    <button id="nextBtn" class="next-btn">Next Question</button>
+  </div>
+</div>
+
+<script type="module">
+import { values, questions } from './data.js';
+
+// Normalize string
+function normalize(str) {
+  return str.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()’‘'"]/g,"").replace(/\s{2,}/g," ").trim();
+}
+
+// Levenshtein distance for fuzzy matching
+function levenshtein(a,b){
+  const matrix=Array.from({length:b.length+1},(_,i)=>[i]);
+  for(let j=0;j<=a.length;j++) matrix[0][j]=j;
+  for(let i=1;i<=b.length;i++){
+    for(let j=1;j<=a.length;j++){
+      matrix[i][j]=(b.charAt(i-1)===a.charAt(j-1)) ? matrix[i-1][j-1] : Math.min(matrix[i-1][j-1]+1, matrix[i][j-1]+1, matrix[i-1][j]+1);
+    }
+  }
+  return matrix[b.length][a.length];
+}
+
+// Fuzzy match
+function isCloseMatch(answer, guess){
+  const normAnswer = normalize(answer);
+  const normGuess = normalize(guess);
+  if(normAnswer===normGuess) return true;
+  const dist=levenshtein(normAnswer,normGuess);
+  const threshold=Math.max(1, Math.floor(normAnswer.length*0.2));
+  return dist<=threshold;
+}
+
+// Utility to pick random item
+function getRandomItem(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+// Game state
+let currentIndex=0;
+let currentAnswers=[];
+let revealed=[];
+let currentQuestionText="";
+let roundQuestions=[];
+let score=0;
+let roundNumber=0;
+let totalpoints = 0
+
+// Update counter
+function updateCounter(){
+  const correctCount = revealed.filter(r => r).length;
+  const totalAnswers = currentAnswers.length;
+  document.getElementById("counter").textContent = `${correctCount}/${totalAnswers}`;
+}
+
+// Filter questions by answer count
+function getQuestionsByAnswerCount(min,max){
+  return questions.filter(q => {
+    let answers = [];
+    if(q.text && q.answers){
+      answers = q.answers; // <- this ensures text questions are included
+    } 
+    else if(q.categoryKey && typeof values[q.categoryKey]==="object" && !Array.isArray(values[q.categoryKey])){
+      const keys = Object.keys(values[q.categoryKey]);
+      const maxKey = keys.reduce((a,b) => values[q.categoryKey][a].length > values[q.categoryKey][b].length ? a : b);
+      answers = values[q.categoryKey][maxKey];
+    } 
+    else if(q.categoryKey && Array.isArray(values[q.categoryKey])) {
+      answers = values[q.categoryKey];
+    }
+
+    return answers.length >= min && answers.length <= max;
+  });
+}
+
+// Start a new round
+// Start a new round
 // Start a new round (selects 3 questions)
 function startRound() {
   score = 0;
@@ -73,3 +340,115 @@ function startQuestion() {
   document.getElementById("guess").value = "";
   renderAnswers();
 }
+
+
+// Render answers
+function renderAnswers(){
+  const answersDiv=document.getElementById("answers");
+  answersDiv.innerHTML="";
+  if(currentAnswers.length>10) answersDiv.classList.add("multicolumn"); else answersDiv.classList.remove("multicolumn");
+  currentAnswers.forEach((ans,i)=>{
+    const displayText=revealed[i]?ans.toUpperCase():ans.split("").map(ch=>ch===" "?"_":"_").join("");
+    const answerDiv=document.createElement("div");
+    answerDiv.className="answer";
+    displayText.split("").forEach(ch=>{
+      const span=document.createElement("span");
+      if(ch===" "){span.classList.add("space");span.textContent="\u00A0";} 
+      else span.textContent=ch;
+      answerDiv.appendChild(span);
+    });
+    answersDiv.appendChild(answerDiv);
+  });
+}
+
+// Reveal letter
+function revealNextLetter(){
+  for(let i=0;i<currentAnswers.length;i++){
+    const ans=currentAnswers[i];
+    if(revealed[i]) continue;
+    const displayedDiv=document.getElementById("answers").children[i];
+    const spans=displayedDiv.querySelectorAll("span");
+    for(let j=0;j<ans.length;j++){
+      if(ans[j]===" ") continue;
+      if(spans[j].textContent==="_"){
+        spans[j].textContent=ans[j].toUpperCase();
+        let allRevealed=true;
+        for(let k=0;k<ans.length;k++){if(ans[k]!==" " && spans[k].textContent==="_"){allRevealed=false;break;}}
+        if(allRevealed) revealed[i]=true;
+        updateCounter();
+        return;
+      }
+    }
+  }
+}
+
+// Check guess
+function checkGuess(){
+  const guessInput=document.getElementById("guess");
+  const guess=guessInput.value.trim();
+  const feedback=document.getElementById("feedback");
+  if(!guess){feedback.textContent="Please enter a guess.";feedback.style.color="#fbbf24";return;}
+  let foundAny=false;
+  currentAnswers.forEach((ans,i)=>{
+    if(!revealed[i] && isCloseMatch(ans,guess)){
+      revealed[i]=true;
+      foundAny=true;
+      score++;
+    }
+  });
+  if(foundAny){
+    feedback.textContent="✅ Correct guess!";
+    feedback.style.color="#4ade80";
+    guessInput.value="";
+    renderAnswers();
+    updateCounter();
+    if(revealed.every(r=>r)){
+      feedback.textContent="🎉 All answers found!";
+    }
+  } else {
+    feedback.textContent="❌ Incorrect guess, try again.";
+    feedback.style.color="#f87171";
+  }
+}
+
+// Next question
+function nextCategory(){
+  currentIndex++;
+  startQuestion();
+}
+
+// Game over screen
+function showGameOver(){
+  const gameDiv = document.getElementById("game");
+  gameDiv.innerHTML = `<h2>🎮 Game Over</h2>
+    <p>Your score: ${score} / ${totalpoints}</p>
+    <button id="newGameBtn">Start New Game</button>`;
+  document.getElementById("newGameBtn").addEventListener("click",()=>{
+    score = 0;
+    roundNumber = 0;
+    location.reload(); // simpler way to restart
+  });
+}
+
+// Event listeners
+document.getElementById("submitBtn").addEventListener("click",checkGuess);
+document.getElementById("nextBtn").addEventListener("click",nextCategory);
+document.getElementById("revealBtn").addEventListener("click",revealNextLetter);
+document.getElementById("guess").addEventListener("keydown", e => {
+  if(e.key === "Enter") {
+    e.preventDefault();
+    // If all answers are revealed, go to next question
+    if (revealed.every(r => r)) {
+      nextCategory();
+    } else {
+      checkGuess();
+    }
+  }
+});
+
+// Initialize
+startRound();
+
+</script>
+</body>
+</html>
