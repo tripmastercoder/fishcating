@@ -276,8 +276,8 @@ function startRound() {
 
   // Filter questions by answer count
   const q3to5 = getQuestionsByAnswerCount(3,6);
-  const q6to10 = getQuestionsByAnswerCount(7,15);
-  const q11plus = getQuestionsByAnswerCount(16, Infinity);
+const q6to10 = getQuestionsByAnswerCount(7,12);
+const q11plus = getQuestionsByAnswerCount(13, Infinity);
 
   // Pick one question from each category
   roundQuestions = [
