@@ -105,5 +105,23 @@ export const questions = [
   { text: 'Ancient Wonders of the World', answers: ['Great Pyramid of Giza', 'Hanging Gardens of Babylon', 'Statue of Zeus', 'Temple of Artemis', 'Mausoleum at Halicarnassus', 'Colossus of Rhodes', 'Lighthouse of Alexandria'] },
   { text: 'Types of clouds', answers: ['Cirrus', 'Cumulus', 'Stratus', 'Nimbus'] },
   { text: 'Instruments in a string quartet', answers: ['Violin', 'Viola', 'Cello', 'Double Bass'] },
-  { text: 'Musical clefs', answers: ['Treble', 'Bass', 'Alto', 'Tenor'] }
+  { text: 'Musical clefs', answers: ['Treble', 'Bass', 'Alto', 'Tenor'] },
+  { text: 'Countries with the most koalas', answers: ['Australia', 'United States', 'Japan'] },
+  { text: 'Countries with more than 1 billion citizens', answers: ['India', 'China''] },
+  { text: 'Countries with 4 letter names', answers: ['Chad', 'Cuba', 'Fiji', 'Iran', 'Iraq', 'Laos', 'Mali'm 'Oman', 'Peru', 'Togo'] },
+  { text: 'Countries that end with A', answers: ['Albania', 'Algeria', 'Andorra', 'Anguilla', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Aruba', 'Australia', 'Austria', 'Bermuda', 'Bolivia', 'Bosnia and Herzegovina' ,'Botswana', 'Bulgaria','Cambodia', 'Canada', 'China', 'Colombia', 'Costa Rica', 'Croatia', 'Cuba', 'Dominica', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Ethiopia', 'French Guiana', 'French Polynesia', 'Gambia', 'Georgia', 'Ghana', 'Guyana', 'India', 'Indonesia', 'Jamaica', 'Kenya', 'Latvia', 'Liberia', 'Libya', 'Lithuania', 'Malaysia', 'Malta', 'Mauritania', 'Micronesia', 'Moldova', 'Mongolia', 'Nimibia', 'New Caledonia', 'Nicaragua', 'Nigeria', 'North Korea', 'North Macedonia', 'Panama', 'Papua New Guinea', 'Romania', 'Russia', 'Rwanda', 'Saint Lucia', 'Samoa', 'Saudi Arabia', 'Serbia', 'Slovakia', 'Somalia', 'South Africa' 'South Korea', 'Sri Lanka', 'Syria', 'Tanzania', 'Tonga', 'Tunisia', 'Uganda', 'Venezuela', 'Zambia'],
+  { text: 'Countries with the largest number of Muslims', answers: ['Bangladesh', 'India', 'Indonesia', 'Nigeria', 'Pakistan'] },
+  { text: 'Countries with the highest alcohol consumption per capita', answers: ['Russia', 'Greece', 'Lesotho'] },
+  { text: 'Countries with the banana consumption per capita', answers: ['Rwanda', 'Papua New Guinea', 'Comoros', 'Laos'] },
+  { text: 'Countries that consume the most beef', answers: ['United States', 'China', 'Brazil', 'India', 'Pakistan'] },
+  { text: 'Countries with the highest number of pet cats', answers: ['United States', 'China', 'Russia', 'France', 'Germany'] },
+  { text: 'Countries where crocs are sold', answers: ['India', 'China', 'United States', 'Indonesia', 'Brazil', 'Mexico', 'Japan', 'Philippines', 'Turkey', 'Germany', 'United Kingdom', 'France', 'South Africa', 'Italy', 'South Korea', 'Spain', 'Argentina', 'Poland', 'Malaysia', 'Saudi Arabia', 'Australia', 'Taiwan', 'Chile', 'Romania', 'Netherlands', 'Belgium' 'Jordan', 'United Arab Emirates', 'Czechia', 'Portugal', 'Greece', 'Austria', 'Switzerland', 'Hong Kong', 'Denmark', 'Singapore', 'Finland', 'Oman', 'Slovakia', 'New Zeakand', 'Puerto Rico', 'Qatar', 'Lithuania', 'Bahrain', 'Estonia', 'Monaco'],
+  { text: 'Countries where a hijab is mandatory', answers: ['Afghanistan', 'Iran'] },
+  { text: 'Countries that exclusively use Farenheit', answers: ['United States', 'Liberia', 'United States Virgin Islands', 'Cayman Islands', 'Marshall Islands'] },
+  { text: 'Countries with the most IKEA stores', answers: ['Germany', 'United States', 'China', 'France', 'Spain'] },
+  { text: 'Counties with the most expensive bear', answers: ['Jordan', 'Australia', 'Oman', 'Singapore', 'Norway'] },
+  { text: 'Countries with space programmes', answers: ['United States', 'China', 'Russia', 'India', 'Pakistan'] },
+  { text: 'Countries with no official language', answers: ['United States', 'United Kingdom', 'Mexico', 'Australia', 'Eritrea'] },
+  { text: 'Countries with the largest number of Facebook users', answers: ['India', 'United States', 'Brazil', 'Indonesia', 'Mexico'] }
+
 ];
