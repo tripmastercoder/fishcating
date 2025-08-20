@@ -129,3 +129,6 @@ export const questions = [
   { text: 'Countries with the more WWII casualties', answers: ['China','Russia','Ukraine','Poland','Germany','Japan']}
 
 ];
+
+console.log("values:", window.values);
+console.log("questions:", window.questions);
