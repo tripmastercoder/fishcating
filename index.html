@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guessing Game - Dark Mode</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
   background-color: #121212;
   color: #e0e0e0;
   margin: 0;
@@ -194,11 +193,8 @@ button.next-btn:hover {
   </div>
 </div>
 
-<script src="data.js"></script>
-<script>
-  // Access questions and values globally
-  const values = window.values;
-  const questions = window.questions;
+<script type="module">
+import { values, questions } from './data.js';
 
 // Normalize string
 function normalize(str) {
@@ -277,8 +273,8 @@ function startRound() {
 
   // Filter questions by answer count
   const q3to5 = getQuestionsByAnswerCount(3,6);
-const q6to10 = getQuestionsByAnswerCount(7,12);
-const q11plus = getQuestionsByAnswerCount(13, Infinity);
+  const q6to10 = getQuestionsByAnswerCount(7,15);
+  const q11plus = getQuestionsByAnswerCount(16, Infinity);
 
   // Pick one question from each category
   roundQuestions = [
@@ -352,8 +348,10 @@ function renderAnswers(){
   answersDiv.innerHTML="";
   if(currentAnswers.length>10) answersDiv.classList.add("multicolumn"); else answersDiv.classList.remove("multicolumn");
   currentAnswers.forEach((ans,i)=>{
-    const displayText=revealed[i]?ans.toUpperCase():ans.split("").map(ch=>ch===" "?"_":"_").join("");
-    const answerDiv=document.createElement("div");
+    const displayText = revealed[i]
+  ? ans.toUpperCase()
+  : ans.split("").map(ch => ch === " " ? " " : "_").join("");
+const answerDiv=document.createElement("div");
     answerDiv.className="answer";
     displayText.split("").forEach(ch=>{
       const span=document.createElement("span");
