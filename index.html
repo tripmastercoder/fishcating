@@ -310,24 +310,11 @@ function startQuestion() {
   }
 
   const q = roundQuestions[currentIndex];
-  let xVal = "";
 
-  // Determine question text and answers
-  if (q.text && q.answers) {
-    currentQuestionText = q.text;
-    currentAnswers = [...q.answers];
-  } else if (q.categoryKey && typeof values[q.categoryKey] === "object" && !Array.isArray(values[q.categoryKey])) {
-    const keys = Object.keys(values[q.categoryKey]);
-    xVal = getRandomItem(keys);
-    currentQuestionText = q.template.replace("{X}", xVal);
-    currentAnswers = [...values[q.categoryKey][xVal]];
-  } else {
-    xVal = "";
-    currentQuestionText = q.template ? q.template.replace("{X}", xVal) : "";
-    currentAnswers = Array.isArray(values[q.categoryKey]) ? [...values[q.categoryKey]] : [];
-  }
+  // Since questions now always have `text` + `answers`
+  currentQuestionText = q.text;
+  currentAnswers = [...q.answers].sort();
 
-  currentAnswers.sort();
   revealed = currentAnswers.map(() => false);
 
   // Increment round number and display
