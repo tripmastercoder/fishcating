@@ -29,13 +29,13 @@ export const values = {
   },
 
   directors: {
-    'Steven Spielberg': ['Jaws', 'E.T. The Extra Terrestrial', 'Jurassic Park', 'Schindlers List', 'Saving Private Ryan', 'Close Encounters of the Third Kind', 'Indiana Jones Raiders of the Lost Ark', 'Catch Me If You Can', 'Minority Report', 'Lincoln'],
+    'Steven Spielberg': ['Jaws', 'E.T.', 'Jurassic Park', 'Schindlers List', 'Saving Private Ryan', 'Close Encounters of the Third Kind', 'Indiana Jones Raiders of the Lost Ark', 'Catch Me If You Can', 'Minority Report', 'Lincoln'],
     'Martin Scorsese': ['Taxi Driver', 'Goodfellas', 'The Irishman', 'Raging Bull', 'The Departed', 'Casino', 'Shutter Island', 'Gangs of New York', 'Hugo'],
     'Christopher Nolan': ['Inception', 'The Dark Knight', 'Interstellar', 'Memento', 'Dunkirk', 'The Prestige', 'Batman Begins', 'Tenet']
   },
 
   oscarCategories: {
-    'Best Picture': ['12 Years a Slave', 'A Beautiful Mind', 'Argo', 'Birdman', 'Chicago', 'CODA', 'Crash', 'Everything Everywhere All at Once', 'Gladiator', 'Green Book', 'Million Dollar Baby', 'Moonlight', 'Nomadland', 'No Country for Old Men', 'Oppenheimer', 'Parasite', 'Slumdog Millionaire', 'Spotlight', 'The Artist', 'The Departed', 'The Hurt Locker', 'The King’s Speech', 'The Lord of the Rings: The Return of the King', 'The Shape of Water']
+    'Best Picture': ['12 Years a Slave', 'A Beautiful Mind', 'Argo', 'Birdman', 'Chicago', 'CODA', 'Crash', 'Everything Everywhere All at Once', 'Gladiator', 'Green Book', 'Million Dollar Baby', 'Moonlight', 'Nomadland', 'No Country for Old Men', 'Oppenheimer', 'Parasite', 'Slumdog Millionaire', 'Spotlight', 'The Artist', 'The Departed', 'The Hurt Locker', 'The Kings Speech', 'The Lord of the Rings: The Return of the King', 'The Shape of Water']
   },
 
   films: {
@@ -79,7 +79,7 @@ export const values = {
 
   topGrossingGames: {
     'PlayStation': ['Gran Turismo', 'Final Fantasy VII', 'Final Fantasy VIII', 'Gran Turismo 2', 'Tekken 3', 'Final Fantasy IX', 'Metal Gear Solid', 'Crash Bandicoot 3: Warped', 'Tomb Raider', 'Resident Evil 3: Nemesis'],
-    'Xbox': ['Halo 2', 'Halo: Combat Evolved', 'Fable', 'Grand Theft Auto: San Andreas', 'Tom Clancy\'s Splinter Cell', 'The Elder Scrolls III: Morrowind', 'Grand Theft Auto III', 'Grand Theft Auto: Vice City', 'Need for Speed: Underground 2', 'Madden NFL 2005'],
+    'Xbox': ['Halo 2', 'Halo: Combat Evolved', 'Fable', 'Grand Theft Auto: San Andreas', 'Tom Clancys Splinter Cell', 'The Elder Scrolls III: Morrowind', 'Grand Theft Auto III', 'Grand Theft Auto: Vice City', 'Need for Speed: Underground 2', 'Madden NFL 2005'],
     'Nintendo Switch': ['Mario Kart 8 Deluxe', 'Animal Crossing: New Horizons', 'Super Smash Bros. Ultimate', 'The Legend of Zelda: Breath of the Wild', 'Super Mario Odyssey', 'Pokémon Sword and Shield', 'Pokémon Scarlet and Violet', 'The Legend of Zelda: Tears of the Kingdom', 'Super Mario Party', 'New Super Mario Bros. U Deluxe']
   }
 };
