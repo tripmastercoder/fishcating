@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guessing Game - Dark Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background-color: #121212;
+  color: #e0e0e0;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+h1 {
+  font-size: 2rem;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+#game {
+  background-color: #1e1e1e;
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 0.5rem 0 4rem;
+  max-width: 700px;
+  width: 90%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+  text-align: center;
+}
+.question {
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  color: #bb86fc;
+}
+.answers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: pre-line;
+  margin-top: 30px;
+  margin-bottom: 5px;
+}
+.answer {
+  text-align: left;
+  white-space: normal;
+  font-size: 0.9rem;
+  font-family: monospace;
+  letter-spacing: 0.2rem;
+  word-spacing: 0.1rem;
+  color: #cfcccc;
+  margin: 0.5rem 0;
+  user-select: none;
+}
+.answer span {
+  padding: 0 4px;
+  display: inline-block;
+  min-width: 1ch;
+  text-transform: uppercase;
+}
+.answer span.space {
+  padding: 0 0.6rem;
+  min-width: 0.8rem;
+}
+input[type="text"] {
+  padding: 10px 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  width: 80%;
+  max-width: 350px;
+  margin-bottom: 1rem;
+  background-color: #2c2c2c;
+  color: #eee;
+  box-shadow: inset 0 0 5px #000;
+  transition: background-color 0.3s ease;
+}
+input[type="text"]::placeholder {
+  color: #777;
+}
+input[type="text"]:focus {
+  outline: none;
+  background-color: #3d3d3d;
+  box-shadow: 0 0 5px #bb86fc;
+}
+button {
+  background: linear-gradient(135deg, #8a2be2, #5d3fd3);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 5px 5px 10px 5px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 12px rgba(138, 43, 226, 0.6);
+}
+button:hover {
+  background: linear-gradient(135deg, #5d3fd3, #8a2be2);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(138, 43, 226, 0.8);
+}
+button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+button.next-btn {
+  background: linear-gradient(135deg, #03dac6, #018786);
+  box-shadow: 0 4px 12px rgba(3, 218, 198, 0.6);
+}
+
+button.next-btn:hover {
+  background: linear-gradient(135deg, #018786, #03dac6);
+  box-shadow: 0 6px 16px rgba(3, 218, 198, 0.8);
+}
+#feedback {
+  min-height: 1.5em;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.answers.multicolumn {
+  font-size: 0.65rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 8px 12px;
+  justify-items: start;
+  align-items: center;
+  max-height: 45vh;
+  overflow-y: auto;
+}
+.answers.multicolumn .answer {
+  white-space: normal;
+  letter-spacing: 0.1rem;
+  margin: 0.2rem 0;
+  padding-right: 8px;
+  word-break: break-word;
+  font-size: 0.75rem;
+}
+
+/* Button group layout */
+.button-group {
+  display: flex;
+  flex-direction: column; /* stack top row and next button vertically */
+  align-items: center;
+  gap: 10px;
+}
+
+.button-group .top-buttons {
+  display: flex;
+  gap: 5px; /* spacing between reveal/submit/counter */
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.button-group .next-btn {
+  flex: 0 0 auto;
+  max-width: 300px;
+}
+
+#counter {
+  font-weight: 500;
+  color: #bb86fc;
+  font-size: 1rem;
+}
+</style>
+</head>
+<body>
+
+<h1>Guessing Game</h1>
+<div id="game">
+  <div class="question" id="question"></div>
+  <div class="answers" id="answers"></div>
+  <input type="text" id="guess" placeholder="Enter your guess" autocomplete="off" />
+  <div id="feedback"></div>
+
+  <!-- Button group with counter -->
+  <div class="button-group">
+    <div class="top-buttons">
+      <button id="revealBtn">Reveal Letter</button>
+      <button id="submitBtn">Submit</button>
+      <div id="counter">0/0</div>
+    </div>
+
+    <button id="nextBtn" class="next-btn">Next Question</button>
+  </div>
+</div>
+
+<script type="module" src="game.js"></script>
+</body>
+</html>
