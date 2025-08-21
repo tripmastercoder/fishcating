@@ -10,20 +10,13 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden; /* stop page scroll */
+  overflow: hidden; /* stop body scroll */
   font-family: 'Inter', 'Segoe UI', sans-serif;
   background-color: #121212;
   color: #e0e0e0;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-h1 {
-  font-size: 2rem;
-  margin: 0.5rem 0;
-  font-weight: 600;
-  color: #ffffff;
 }
 
 #game {
@@ -36,28 +29,32 @@ h1 {
   height: 90vh; /* fill most of screen */
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* buttons stay at bottom */
+  justify-content: space-between; /* push buttons to bottom */
   align-items: center;
   box-shadow: 0 8px 20px rgba(0,0,0,0.7);
 }
 
-.question {
-  font-size: 1.3rem;
-  margin-bottom: 1rem;
-  font-weight: 500;
-  color: #bb86fc;
-  text-align: center;
-}
-
 .answers {
-  flex: 1; /* take remaining space */
+  flex: 1; /* take all remaining space */
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: auto; /* scroll inside answers if needed */
+  overflow-y: auto; /* scroll internally if too many answers */
   margin: 10px 0;
 }
+
+h1 {
+  font-size: 2rem;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+
+.question {
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  color: #bb86fc;
 
 .answer {
   text-align: left;
@@ -70,19 +67,16 @@ h1 {
   margin: 0.5rem 0;
   user-select: none;
 }
-
 .answer span {
   padding: 0 4px;
   display: inline-block;
   min-width: 1ch;
   text-transform: uppercase;
 }
-
 .answer span.space {
   padding: 0 0.6rem;
   min-width: 0.8rem;
 }
-
 input[type="text"] {
   padding: 10px 12px;
   font-size: 1rem;
@@ -96,17 +90,14 @@ input[type="text"] {
   box-shadow: inset 0 0 5px #000;
   transition: background-color 0.3s ease;
 }
-
 input[type="text"]::placeholder {
   color: #777;
 }
-
 input[type="text"]:focus {
   outline: none;
   background-color: #3d3d3d;
   box-shadow: 0 0 5px #bb86fc;
 }
-
 button {
   background: linear-gradient(135deg, #8a2be2, #5d3fd3);
   color: white;
@@ -120,18 +111,15 @@ button {
   transition: all 0.2s ease-in-out;
   box-shadow: 0 4px 12px rgba(138, 43, 226, 0.6);
 }
-
 button:hover {
   background: linear-gradient(135deg, #5d3fd3, #8a2be2);
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(138, 43, 226, 0.8);
 }
-
 button:active {
   transform: translateY(0);
   box-shadow: none;
 }
-
 button.next-btn {
   background: linear-gradient(135deg, #03dac6, #018786);
   box-shadow: 0 4px 12px rgba(3, 218, 198, 0.6);
@@ -141,14 +129,11 @@ button.next-btn:hover {
   background: linear-gradient(135deg, #018786, #03dac6);
   box-shadow: 0 6px 16px rgba(3, 218, 198, 0.8);
 }
-
 #feedback {
   min-height: 1.5em;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  text-align: center;
 }
-
 .answers.multicolumn {
   font-size: 0.65rem;
   display: grid;
@@ -159,7 +144,6 @@ button.next-btn:hover {
   max-height: 45vh;
   overflow-y: auto;
 }
-
 .answers.multicolumn .answer {
   white-space: normal;
   letter-spacing: 0.1rem;
@@ -172,14 +156,14 @@ button.next-btn:hover {
 /* Button group layout */
 .button-group {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* stack top row and next button vertically */
   align-items: center;
   gap: 10px;
 }
 
 .button-group .top-buttons {
   display: flex;
-  gap: 5px;
+  gap: 5px; /* spacing between reveal/submit/counter */
   flex-wrap: wrap;
   align-items: center;
 }
@@ -205,18 +189,20 @@ button.next-btn:hover {
   <input type="text" id="guess" placeholder="Enter your guess" autocomplete="off" />
   <div id="feedback"></div>
 
+  <!-- Button group with counter -->
   <div class="button-group">
     <div class="top-buttons">
       <button id="revealBtn">Reveal Letter</button>
       <button id="submitBtn">Submit</button>
       <div id="counter">0/0</div>
     </div>
+
     <button id="nextBtn" class="next-btn">Next Question</button>
   </div>
 </div>
 
-<!-- Only include game.js as a module; data.js is imported inside it -->
-<script type="module" src="game.js"></script>
+<script src="data.js"></script>
+<script src="game.js"></script>
 
 </body>
 </html>
