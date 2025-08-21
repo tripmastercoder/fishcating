@@ -1,4 +1,6 @@
 // CATEGORY ANSWERS
+export const values = {}; // Empty for now since all questions are converted to direct format
+
 export const questions = [
   // --- Category-based questions converted ---
   // Cities
@@ -48,7 +50,7 @@ export const questions = [
   { text: 'Cast of Game of Thrones', answers: ['Emilia Clarke', 'Kit Harington', 'Peter Dinklage', 'Lena Headey', 'Nikolaj Coster-Waldau', 'Sophie Turner', 'Maisie Williams', 'Iain Glen', 'Alfie Allen', 'Gwendoline Christie'] },
   { text: 'Cast of Friends', answers: ['Jennifer Aniston', 'Courteney Cox', 'Lisa Kudrow', 'Matt LeBlanc', 'Matthew Perry', 'David Schwimmer'] },
   { text: 'Cast of Stranger Things', answers: ['Winona Ryder', 'David Harbour', 'Millie Bobby Brown', 'Finn Wolfhard', 'Gaten Matarazzo', 'Caleb McLaughlin', 'Natalia Dyer', 'Charlie Heaton', 'Cara Buono', 'Noah Schnapp'] },
-  { text: 'Cast of The Crown', answers: ['Olivia Colman', 'Tobias Menzies', 'Helena Bonham Carter', 'Josh O’Connor', 'Emma Corrin', 'Gillan Anderson', 'Imelda Staunton'] },
+  { text: 'Cast of The Crown', answers: ['Olivia Colman', 'Tobias Menzies', 'Helena Bonham Carter', 'Josh O'Connor', 'Emma Corrin', 'Gillan Anderson', 'Imelda Staunton'] },
   { text: 'Cast of The Mandalorian', answers: ['Pedro Pascal', 'Gina Carano', 'Carl Weathers', 'Giancarlo Esposito', 'Emily Swallow', 'Katee Sackhoff'] },
   { text: 'Cast of The Simpsons', answers: ['Dan Castellaneta', 'Julie Kavner', 'Nancy Cartwright', 'Yeardley Smith', 'Hank Azaria', 'Harry Shearer'] },
   { text: 'Cast of Sherlock', answers: ['Benedict Cumberbatch', 'Martin Freeman', 'Una Stubbs', 'Rupert Graves', 'Louise Brealey', 'Mark Gatiss'] },
@@ -64,16 +66,8 @@ export const questions = [
   { text: 'Top 10 grossing games on PlayStation', answers: ['Gran Turismo', 'Final Fantasy VII', 'Final Fantasy VIII', 'Gran Turismo 2', 'Tekken 3', 'Final Fantasy IX', 'Metal Gear Solid', 'Crash Bandicoot 3: Warped', 'Tomb Raider', 'Resident Evil 3: Nemesis'] },
   { text: 'Top 10 grossing games on Xbox', answers: ['Halo 2', 'Halo: Combat Evolved', 'Fable', 'Grand Theft Auto: San Andreas', 'Tom Clancys Splinter Cell', 'The Elder Scrolls III: Morrowind', 'Grand Theft Auto III', 'Grand Theft Auto: Vice City', 'Need for Speed: Underground 2', 'Madden NFL 2005'] },
   { text: 'Top 10 grossing games on Nintendo Switch', answers: ['Mario Kart 8 Deluxe', 'Animal Crossing: New Horizons', 'Super Smash Bros. Ultimate', 'The Legend of Zelda: Breath of the Wild', 'Super Mario Odyssey', 'Pokémon Sword and Shield', 'Pokémon Scarlet and Violet', 'The Legend of Zelda: Tears of the Kingdom', 'Super Mario Party', 'New Super Mario Bros. U Deluxe'] },
-  { template: 'Largest cities in {X}', categoryKey: 'cities' },
-  { template: 'Countries in {X}', categoryKey: 'countries' },
-  { template: 'Films starring {X}', categoryKey: 'actors' },
-  { template: 'Films directed by {X}', categoryKey: 'directors' },
-  { template: '21st century Oscar winners in {X} category', categoryKey: 'oscarCategories' },
-  { template: 'Actors in {X} film', categoryKey: 'films' },
-  { template: 'Cast of {X} TV show', categoryKey: 'tvShows' },
-  { template: '21st C Emmy winning shows', categoryKey: 'emmyShows' },
-  { template: 'Game of the Year winners', categoryKey: 'goty' },
-  { template: 'Top 10 grossing games on {X}', categoryKey: 'topGrossingGames' },
+
+  // Simple questions
   { text: 'Primary colours', answers: ['Red', 'Blue', 'Green'] },
   { text: 'Planets in the Solar System', answers: ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'] },
   { text: 'Chess pieces', answers: ['King', 'Queen', 'Bishop', 'Knight', 'Rook', 'Pawn'] },
@@ -104,8 +98,4 @@ export const questions = [
   { text: 'Oldest countries in Europe', answers: ['San Marino','France','Denmark','Austria','Hungary','Portugal','Andorra','Switzerland','Monaco','Spain']},
   { text: 'Countries in the Soviet Union', answers: ['Armenia','Azerbaijan','Belarus','Estonia','Georgia','Kazakhstan','Kyrgyzstan','Latvia','Lithuania','Moldova','Russia','Tajikistan','Turkmenistan','Ukraine','Uzbekistan']},
   { text: 'Countries with the more WWII casualties', answers: ['China','Russia','Ukraine','Poland','Germany','Japan']}
-
 ];
-
-console.log("values:", window.values);
-console.log("questions:", window.questions);
