@@ -1,6 +1,72 @@
-import { values, questions } from './data.js';
+// ---- DATA SOURCE (non-module): read from globals injected by data.js ----
+const values = (window.values ?? {});
+const questions = (window.questions ?? []);
 
-// Game state variables
+// -------------------- Helpers --------------------
+
+// Normalize string
+function normalize(str) {
+  return str
+    .toLowerCase()
+    .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()'"“”‘’()\[\]]/g, "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
+// Levenshtein distance for fuzzy matching
+function levenshtein(a, b) {
+  const matrix = Array.from({ length: b.length + 1 }, (_, i) => [i]);
+  for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+  for (let i = 1; i <= b.length; i++) {
+    for (let j = 1; j <= a.length; j++) {
+      matrix[i][j] =
+        b.charAt(i - 1) === a.charAt(j - 1)
+          ? matrix[i - 1][j - 1]
+          : Math.min(matrix[i - 1][j - 1] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j] + 1);
+    }
+  }
+  return matrix[b.length][a.length];
+}
+
+// Fuzzy match
+function isCloseMatch(answer, guess) {
+  const normAnswer = normalize(answer);
+  const normGuess = normalize(guess);
+  if (normAnswer === normGuess) return true;
+  const dist = levenshtein(normAnswer, normGuess);
+  const threshold = Math.max(1, Math.floor(normAnswer.length * 0.2));
+  return dist <= threshold;
+}
+
+// Utility to pick random item
+function pickOne(arr) {
+  if (!Array.isArray(arr) || arr.length === 0) return null;
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+// Resolve an answers array for a question object
+function resolveAnswers(q) {
+  if (!q) return [];
+  if (Array.isArray(q.answers)) return q.answers.slice();
+
+  if (q.categoryKey && values[q.categoryKey]) {
+    const src = values[q.categoryKey];
+    if (Array.isArray(src)) return src.slice();
+    if (src && typeof src === "object") {
+      const keys = Object.keys(src);
+      if (keys.length === 0) return [];
+      // choose the sub-key with the most answers
+      const maxKey = keys.reduce((a, b) =>
+        (Array.isArray(src[a]) ? src[a].length : 0) >
+        (Array.isArray(src[b]) ? src[b].length : 0) ? a : b
+      );
+      return Array.isArray(src[maxKey]) ? src[maxKey].slice() : [];
+    }
+  }
+  return [];
+}
+
+// -------------------- Game State --------------------
 let currentIndex = 0;
 let currentAnswers = [];
 let revealed = [];
@@ -10,171 +76,145 @@ let score = 0;
 let roundNumber = 0;
 let totalpoints = 0;
 
-// Normalize string
-function normalize(str) {
-  return str.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()'''"]/g,"").replace(/\s{2,}/g," ").trim();
-}
-
-// Levenshtein distance for fuzzy matching
-function levenshtein(a,b){
-  const matrix=Array.from({length:b.length+1},(_,i)=>[i]);
-  for(let j=0;j<=a.length;j++) matrix[0][j]=j;
-  for(let i=1;i<=b.length;i++){
-    for(let j=1;j<=a.length;j++){
-      matrix[i][j]=(b.charAt(i-1)===a.charAt(j-1)) ? matrix[i-1][j-1] : Math.min(matrix[i-1][j-1]+1, matrix[i][j-1]+1, matrix[i-1][j]+1);
-    }
-  }
-  return matrix[b.length][a.length];
-}
-
-// Fuzzy match
-function isCloseMatch(answer, guess){
-  const normAnswer = normalize(answer);
-  const normGuess = normalize(guess);
-  if(normAnswer===normGuess) return true;
-  const dist=levenshtein(normAnswer,normGuess);
-  const threshold=Math.max(1, Math.floor(normAnswer.length*0.2));
-  return dist<=threshold;
-}
-
-// Utility to pick random item
-function getRandomItem(arr){ 
-  return arr[Math.floor(Math.random()*arr.length)]; 
-}
-
-// Update counter
-function updateCounter(){
-  const correctCount = revealed.filter(r => r).length;
+// -------------------- UI Helpers --------------------
+function updateCounter() {
+  const correctCount = revealed.filter(Boolean).length;
   const totalAnswers = currentAnswers.length;
-  document.getElementById("counter").textContent = `${correctCount}/${totalAnswers}`;
+  const el = document.getElementById("counter");
+  if (el) el.textContent = `${correctCount}/${totalAnswers}`;
 }
 
-// Filter questions by answer count
-function getQuestionsByAnswerCount(min,max){
-  return questions.filter(q => {
-    let answers = [];
-    if(q.text && q.answers){
-      answers = q.answers;
-    } 
-    else if(q.categoryKey && typeof values[q.categoryKey]==="object" && !Array.isArray(values[q.categoryKey])){
-      const keys = Object.keys(values[q.categoryKey]);
-      const maxKey = keys.reduce((a,b) => values[q.categoryKey][a].length > values[q.categoryKey][b].length ? a : b);
-      answers = values[q.categoryKey][maxKey];
-    } 
-    else if(q.categoryKey && Array.isArray(values[q.categoryKey])) {
-      answers = values[q.categoryKey];
-    }
+function setFeedback(text, color) {
+  const fb = document.getElementById("feedback");
+  if (!fb) return;
+  fb.textContent = text;
+  if (color) fb.style.color = color;
+}
 
+// -------------------- Querying questions --------------------
+function getQuestionsByAnswerCount(min, max) {
+  return (questions || []).filter((q) => {
+    const answers = resolveAnswers(q);
     return answers.length >= min && answers.length <= max;
   });
 }
 
-// Start a new round
+// -------------------- Round / Question Flow --------------------
 function startRound() {
   score = 0;
   totalpoints = 0;
   roundNumber = 0;
-
-  // Filter questions by answer count
-  const q3to5 = getQuestionsByAnswerCount(3,6);
-  const q6to10 = getQuestionsByAnswerCount(7,15);
-  const q11plus = getQuestionsByAnswerCount(16, Infinity);
-
-  // Pick one question from each category
-  roundQuestions = [
-    getRandomItem(q3to5),
-    getRandomItem(q6to10),
-    getRandomItem(q11plus)
-  ];
-
-  // Calculate total points
-  totalpoints = roundQuestions.reduce((sum, q) => {
-    let answers = [];
-    if (q.answers) answers = q.answers;
-    else if (q.categoryKey && values[q.categoryKey]) {
-      if (Array.isArray(values[q.categoryKey])) answers = values[q.categoryKey];
-      else {
-        const keys = Object.keys(values[q.categoryKey]);
-        const maxKey = keys.reduce((a,b) => values[q.categoryKey][a].length > values[q.categoryKey][b].length ? a : b);
-        answers = values[q.categoryKey][maxKey];
-      }
-    }
-    return sum + answers.length;
-  }, 0);
-
   currentIndex = 0;
+
+  const q3to6 = getQuestionsByAnswerCount(3, 6);
+  const q7to15 = getQuestionsByAnswerCount(7, 15);
+  const q16plus = getQuestionsByAnswerCount(16, Infinity);
+
+  roundQuestions = [pickOne(q3to6), pickOne(q7to15), pickOne(q16plus)].filter(Boolean);
+
+  if (!Array.isArray(roundQuestions) || roundQuestions.length === 0) {
+    const qEl = document.getElementById("question");
+    if (qEl) qEl.textContent = "No playable questions found. Check your data.js.";
+    console.error("No questions available. Ensure window.questions/window.values are defined.");
+    return;
+  }
+
+  // calculate total points (sum of answers across chosen questions)
+  totalpoints = roundQuestions.reduce((sum, q) => sum + resolveAnswers(q).length, 0);
+
   startQuestion();
 }
 
-// Start a question
 function startQuestion() {
-  if (currentIndex >= roundQuestions.length) { 
-    showGameOver(); 
-    return; 
+  if (currentIndex >= roundQuestions.length) {
+    showGameOver();
+    return;
   }
 
   const q = roundQuestions[currentIndex];
-  currentQuestionText = q.text;
-  currentAnswers = [...q.answers].sort();
+  currentQuestionText = (q && q.text) ? q.text : "Untitled question";
+  currentAnswers = resolveAnswers(q)
+    .filter((x) => typeof x === "string" && x.trim().length > 0)
+    .sort((a, b) => a.localeCompare(b));
+
   revealed = currentAnswers.map(() => false);
-
   roundNumber++;
-  document.getElementById("question").textContent = 
-    `Round ${roundNumber}: ${currentQuestionText}`;
 
-  updateCounter();
-  document.getElementById("feedback").textContent = "";
-  document.getElementById("guess").value = "";
+  const qEl = document.getElementById("question");
+  if (qEl) qEl.textContent = `Round ${roundNumber}: ${currentQuestionText}`;
+
+  setFeedback("", null);
+  const guess = document.getElementById("guess");
+  if (guess) guess.value = "";
+
   renderAnswers();
+  updateCounter();
+
+  if (currentAnswers.length === 0) {
+    setFeedback("⚠️ This question has no answers. Press Next.", "#fbbf24");
+  }
 }
 
-// Render answers
-function renderAnswers(){
-  const answersDiv=document.getElementById("answers");
-  answersDiv.innerHTML="";
-  if(currentAnswers.length>10) answersDiv.classList.add("multicolumn"); else answersDiv.classList.remove("multicolumn");
-  
-  currentAnswers.forEach((ans,i)=>{
+function renderAnswers() {
+  const answersDiv = document.getElementById("answers");
+  if (!answersDiv) return;
+
+  answersDiv.innerHTML = "";
+  if (currentAnswers.length > 10) {
+    answersDiv.classList.add("multicolumn");
+  } else {
+    answersDiv.classList.remove("multicolumn");
+  }
+
+  currentAnswers.forEach((ans, i) => {
     const displayText = revealed[i]
       ? ans.toUpperCase()
-      : ans.split("").map(ch => ch === " " ? " " : "_").join("");
-    
-    const answerDiv=document.createElement("div");
-    answerDiv.className="answer";
-    
-    displayText.split("").forEach(ch=>{
-      const span=document.createElement("span");
-      if(ch===" "){
+      : ans.split("").map((ch) => (ch === " " ? " " : "_")).join("");
+
+    const answerDiv = document.createElement("div");
+    answerDiv.className = "answer";
+
+    displayText.split("").forEach((ch) => {
+      const span = document.createElement("span");
+      if (ch === " ") {
         span.classList.add("space");
-        span.textContent="\u00A0";
+        span.textContent = "\u00A0"; // nbsp
       } else {
-        span.textContent=ch;
+        span.textContent = ch;
       }
       answerDiv.appendChild(span);
     });
+
     answersDiv.appendChild(answerDiv);
   });
 }
 
-// Reveal letter
-function revealNextLetter(){
-  for(let i=0;i<currentAnswers.length;i++){
-    const ans=currentAnswers[i];
-    if(revealed[i]) continue;
-    const displayedDiv=document.getElementById("answers").children[i];
-    const spans=displayedDiv.querySelectorAll("span");
-    for(let j=0;j<ans.length;j++){
-      if(ans[j]===" ") continue;
-      if(spans[j].textContent==="_"){
-        spans[j].textContent=ans[j].toUpperCase();
-        let allRevealed=true;
-        for(let k=0;k<ans.length;k++){
-          if(ans[k]!==" " && spans[k].textContent==="_"){
-            allRevealed=false;
+function revealNextLetter() {
+  const answersDiv = document.getElementById("answers");
+  if (!answersDiv) return;
+
+  for (let i = 0; i < currentAnswers.length; i++) {
+    const ans = currentAnswers[i];
+    if (revealed[i]) continue;
+
+    const spans = answersDiv.children[i]?.querySelectorAll("span");
+    if (!spans) continue;
+
+    for (let j = 0; j < ans.length; j++) {
+      if (ans[j] === " ") continue;
+      if (spans[j]?.textContent === "_") {
+        spans[j].textContent = ans[j].toUpperCase();
+
+        // Did we reveal the full answer?
+        let allRevealed = true;
+        for (let k = 0; k < ans.length; k++) {
+          if (ans[k] !== " " && spans[k]?.textContent === "_") {
+            allRevealed = false;
             break;
           }
         }
-        if(allRevealed) revealed[i]=true;
+        if (allRevealed) revealed[i] = true;
+
         updateCounter();
         return;
       }
@@ -182,73 +222,70 @@ function revealNextLetter(){
   }
 }
 
-// Check guess
-function checkGuess(){
-  const guessInput=document.getElementById("guess");
-  const guess=guessInput.value.trim();
-  const feedback=document.getElementById("feedback");
-  
-  if(!guess){
-    feedback.textContent="Please enter a guess.";
-    feedback.style.color="#fbbf24";
+function checkGuess() {
+  const guessInput = document.getElementById("guess");
+  const feedback = document.getElementById("feedback");
+  if (!guessInput || !feedback) return;
+
+  const guess = guessInput.value.trim();
+  if (!guess) {
+    setFeedback("Please enter a guess.", "#fbbf24");
     return;
   }
-  
-  let foundAny=false;
-  currentAnswers.forEach((ans,i)=>{
-    if(!revealed[i] && isCloseMatch(ans,guess)){
-      revealed[i]=true;
-      foundAny=true;
+
+  let foundAny = false;
+  currentAnswers.forEach((ans, i) => {
+    if (!revealed[i] && isCloseMatch(ans, guess)) {
+      revealed[i] = true;
+      foundAny = true;
       score++;
     }
   });
-  
-  if(foundAny){
-    feedback.textContent="✅ Correct guess!";
-    feedback.style.color="#4ade80";
-    guessInput.value="";
+
+  if (foundAny) {
+    setFeedback("✅ Correct guess!", "#4ade80");
+    guessInput.value = "";
     renderAnswers();
     updateCounter();
-    if(revealed.every(r=>r)){
-      feedback.textContent="🎉 All answers found!";
+    if (revealed.every(Boolean)) {
+      setFeedback("🎉 All answers found!", "#4ade80");
     }
   } else {
-    feedback.textContent="❌ Incorrect guess, try again.";
-    feedback.style.color="#f87171";
+    setFeedback("❌ Incorrect guess, try again.", "#f87171");
   }
 }
 
-// Next question
-function nextCategory(){
+function nextCategory() {
   currentIndex++;
   startQuestion();
 }
 
-// Game over screen
-function showGameOver(){
+function showGameOver() {
   const gameDiv = document.getElementById("game");
+  if (!gameDiv) return;
+
   gameDiv.innerHTML = `<h2>🎮 Game Over</h2>
     <p>Your score: ${score} / ${totalpoints}</p>
     <button id="newGameBtn">Start New Game</button>`;
-  
-  document.getElementById("newGameBtn").addEventListener("click",()=>{
+
+  document.getElementById("newGameBtn")?.addEventListener("click", () => {
     score = 0;
     roundNumber = 0;
     location.reload();
   });
 }
 
-// Initialize game when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-  // Set up event listeners
-  document.getElementById("submitBtn").addEventListener("click", checkGuess);
-  document.getElementById("nextBtn").addEventListener("click", nextCategory);
-  document.getElementById("revealBtn").addEventListener("click", revealNextLetter);
-  
-  document.getElementById("guess").addEventListener("keydown", e => {
-    if(e.key === "Enter") {
+// -------------------- Boot --------------------
+document.addEventListener("DOMContentLoaded", () => {
+  // Wire up buttons
+  document.getElementById("submitBtn")?.addEventListener("click", checkGuess);
+  document.getElementById("nextBtn")?.addEventListener("click", nextCategory);
+  document.getElementById("revealBtn")?.addEventListener("click", revealNextLetter);
+
+  document.getElementById("guess")?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
       e.preventDefault();
-      if (revealed.every(r => r)) {
+      if (revealed.length && revealed.every(Boolean)) {
         nextCategory();
       } else {
         checkGuess();
@@ -256,6 +293,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Start the game
+  // Validate data presence
+  if (!Array.isArray(questions) || questions.length === 0) {
+    const qEl = document.getElementById("question");
+    if (qEl) qEl.textContent = "Error: No questions loaded. Is data.js included before game.js?";
+    console.error("questions[] missing. Ensure <script src='data.js'></script> appears before game.js and defines window.questions.");
+    return;
+  }
+
   startRound();
 });
