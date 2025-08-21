@@ -6,42 +6,41 @@
 <title>Guessing Game - Dark Mode</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-body {
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* stop body scroll */
   font-family: 'Inter', 'Segoe UI', sans-serif;
   background-color: #121212;
   color: #e0e0e0;
-  margin: 0;
-  padding: 0;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  overflow: hidden; /* prevent body scroll */
 }
 
 #game {
   background-color: #1e1e1e;
   border-radius: 16px;
   padding: 1.5rem;
-  margin-top: 0.5rem;
+  margin: 0.5rem 0;
+  width: 90%;
   max-width: 700px;
-  width: 95%;
-  max-height: 90vh; /* keeps within screen */
+  height: 90vh; /* fill most of screen */
   display: flex;
   flex-direction: column;
+  justify-content: space-between; /* push buttons to bottom */
   align-items: center;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
-  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.7);
 }
 
 .answers {
-  flex: 1;
+  flex: 1; /* take all remaining space */
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: auto; /* scroll inside answers if needed */
+  overflow-y: auto; /* scroll internally if too many answers */
   margin: 10px 0;
 }
 
