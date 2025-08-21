@@ -50,7 +50,7 @@ export const questions = [
   { text: 'Cast of Game of Thrones', answers: ['Emilia Clarke', 'Kit Harington', 'Peter Dinklage', 'Lena Headey', 'Nikolaj Coster-Waldau', 'Sophie Turner', 'Maisie Williams', 'Iain Glen', 'Alfie Allen', 'Gwendoline Christie'] },
   { text: 'Cast of Friends', answers: ['Jennifer Aniston', 'Courteney Cox', 'Lisa Kudrow', 'Matt LeBlanc', 'Matthew Perry', 'David Schwimmer'] },
   { text: 'Cast of Stranger Things', answers: ['Winona Ryder', 'David Harbour', 'Millie Bobby Brown', 'Finn Wolfhard', 'Gaten Matarazzo', 'Caleb McLaughlin', 'Natalia Dyer', 'Charlie Heaton', 'Cara Buono', 'Noah Schnapp'] },
-  { text: 'Cast of The Crown', answers: ['Olivia Colman', 'Tobias Menzies', 'Helena Bonham Carter', 'Josh O'Connor', 'Emma Corrin', 'Gillan Anderson', 'Imelda Staunton'] },
+  { text: 'Cast of The Crown', answers: ['Olivia Colman', 'Tobias Menzies', 'Helena Bonham Carter', 'Josh OConnor', 'Emma Corrin', 'Gillan Anderson', 'Imelda Staunton'] },
   { text: 'Cast of The Mandalorian', answers: ['Pedro Pascal', 'Gina Carano', 'Carl Weathers', 'Giancarlo Esposito', 'Emily Swallow', 'Katee Sackhoff'] },
   { text: 'Cast of The Simpsons', answers: ['Dan Castellaneta', 'Julie Kavner', 'Nancy Cartwright', 'Yeardley Smith', 'Hank Azaria', 'Harry Shearer'] },
   { text: 'Cast of Sherlock', answers: ['Benedict Cumberbatch', 'Martin Freeman', 'Una Stubbs', 'Rupert Graves', 'Louise Brealey', 'Mark Gatiss'] },
