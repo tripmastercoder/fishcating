@@ -1,7 +1,7 @@
 // CATEGORY ANSWERS
-export const values = {}; // Empty for now since all questions are converted to direct format
+const values = {}; // Empty for now since all questions are converted to direct format
 
-export const questions = [
+const questions = [
   // --- Category-based questions converted ---
   // Cities
   { text: 'Largest cities in France', answers: ['Paris', 'Marseille', 'Lyon', 'Toulouse', 'Nice', 'Nantes', 'Montpellier', 'Strasbourg', 'Bordeaux', 'Lille'] },
@@ -99,3 +99,6 @@ export const questions = [
   { text: 'Countries in the Soviet Union', answers: ['Armenia','Azerbaijan','Belarus','Estonia','Georgia','Kazakhstan','Kyrgyzstan','Latvia','Lithuania','Moldova','Russia','Tajikistan','Turkmenistan','Ukraine','Uzbekistan']},
   { text: 'Countries with the more WWII casualties', answers: ['China','Russia','Ukraine','Poland','Germany','Japan']}
 ];
+
+window.values = values;
+window.questions = questions;
