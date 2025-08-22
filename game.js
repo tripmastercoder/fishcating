@@ -1,6 +1,8 @@
-// ---- DATA SOURCE (non-module): read from globals injected by data.js ----
-const values = (window.values ?? {});
-const questions = (window.questions ?? []);
+// don’t shadow 'questions'/'values'
+let QUESTIONS = Array.isArray(window.questions) ? window.questions : [];
+try { if (QUESTIONS.length === 0) QUESTIONS = questions; } catch {}
+let VALUES = window.values ?? {};
+try { if (!window.values) VALUES = values; } catch {}
 
 // -------------------- Helpers --------------------
 
