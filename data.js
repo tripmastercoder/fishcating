@@ -97,7 +97,7 @@ const questions = [
   { text: 'Countries that achieved independence from Spain', answers: ['Argentina','Belgium','Belize','Bolivia','Chile','Colombia','Costa Rica','Cuba','Dominican Republic','Ecuador','El Salvador','Equatorial Guinea','Guam','Guatemala','Haiti','Honduras','Italy','Luxembourg','Mexico','Micronesia','Morocco','Netherlands','Nicaragua','Northern Mariana Islands','Palau','Panama','Paraguay','Peru','Philippines','Portugal','Puerto Rico','Taiwan','United States','Uruguay','Venezuela','Western Sahara']},
   { text: 'Oldest countries in Europe', answers: ['San Marino','France','Denmark','Austria','Hungary','Portugal','Andorra','Switzerland','Monaco','Spain']},
   { text: 'Countries in the Soviet Union', answers: ['Armenia','Azerbaijan','Belarus','Estonia','Georgia','Kazakhstan','Kyrgyzstan','Latvia','Lithuania','Moldova','Russia','Tajikistan','Turkmenistan','Ukraine','Uzbekistan']},
-  { text: 'Countries with the more WWII casualties', answers: ['China','Russia','Ukraine','Poland','Germany','Japan']}
+  { text: 'Countries with the most WWII casualties', answers: ['China','Russia','Ukraine','Poland','Germany','Japan']}
 ];
 
 window.values = values;
