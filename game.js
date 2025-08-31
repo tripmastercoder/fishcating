@@ -108,9 +108,9 @@ function startRound() {
   roundNumber = 0;
   currentIndex = 0;
 
-  const q3to6 = getQuestionsByAnswerCount(3, 6);
-  const q7to15 = getQuestionsByAnswerCount(7, 15);
-  const q16plus = getQuestionsByAnswerCount(16, Infinity);
+  const q3to6 = getQuestionsByAnswerCount(1, 5);
+  const q7to15 = getQuestionsByAnswerCount(6, 12);
+  const q16plus = getQuestionsByAnswerCount(13, Infinity);
 
   roundQuestions = [pickOne(q3to6), pickOne(q7to15), pickOne(q16plus)].filter(Boolean);
 
