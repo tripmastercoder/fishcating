@@ -97,7 +97,10 @@ const questions = [
   { text: 'Countries that achieved independence from Spain', answers: ['Argentina','Belgium','Belize','Bolivia','Chile','Colombia','Costa Rica','Cuba','Dominican Republic','Ecuador','El Salvador','Equatorial Guinea','Guam','Guatemala','Haiti','Honduras','Italy','Luxembourg','Mexico','Micronesia','Morocco','Netherlands','Nicaragua','Northern Mariana Islands','Palau','Panama','Paraguay','Peru','Philippines','Portugal','Puerto Rico','Taiwan','United States','Uruguay','Venezuela','Western Sahara']},
   { text: 'Oldest countries in Europe', answers: ['San Marino','France','Denmark','Austria','Hungary','Portugal','Andorra','Switzerland','Monaco','Spain']},
   { text: 'Countries in the Soviet Union', answers: ['Armenia','Azerbaijan','Belarus','Estonia','Georgia','Kazakhstan','Kyrgyzstan','Latvia','Lithuania','Moldova','Russia','Tajikistan','Turkmenistan','Ukraine','Uzbekistan']},
-  { text: 'Countries with the most WWII casualties', answers: ['China','Russia','Ukraine','Poland','Germany','Japan']}
+  { text: 'Countries with the most WWII casualties', answers: ['China','Russia','Ukraine','Poland','Germany','Japan']},
+  { text: 'Prime numbers smaller than 100', answers: ['2','3','5','7','11','13','17','19','23','29','31','37','41','43','47','53','59','61','67','71','73','79','83','89','97']},
+  { text: 'Most spokem languages', answers: ['English','Mandarin','Hindi','Spanish','Arabic','French','Bengali','Portuguese','Russian','Indonesian','Urdu','German']},
+  { text: 'Biblical plagues of Egpty', answers: ["Water turned to blood","Frogs","Lice","Flies","Disease on livestock","Boils","Hail","Locusts","Darkness","Death of the firstborn"]}
 ];
 
 window.values = values;
