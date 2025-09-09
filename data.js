@@ -1,7 +1,7 @@
 // CATEGORY ANSWERS
 const values = {}; // Empty for now since all questions are converted to direct format
 
-const questions = [
+var questions = [
   // --- Category-based questions converted ---
   // Cities
   { text: 'Largest cities in France', answers: ['Paris', 'Marseille', 'Lyon', 'Toulouse', 'Nice', 'Nantes', 'Montpellier', 'Strasbourg', 'Bordeaux', 'Lille'] },
