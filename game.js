@@ -110,7 +110,7 @@ function startRound() {
 
   const q3to6 = getQuestionsByAnswerCount(1, infinity);
   const q7to15 = getQuestionsByAnswerCount(1, infinity);
-  const q16plus = getQuestionsByAnswerCount(1, Infinity);
+  const q16plus = getQuestionsByAnswerCount(1, infinity);
 
   roundQuestions = [pickOne(q3to6), pickOne(q7to15), pickOne(q16plus)].filter(Boolean);
 
