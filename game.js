@@ -1,4 +1,4 @@
-// don’t shadow 'questions'/'values'
+// don't shadow 'questions'/'values'
 let QUESTIONS = Array.isArray(window.questions) ? window.questions : [];
 try { if (QUESTIONS.length === 0) QUESTIONS = questions; } catch {}
 let VALUES = window.values ?? {};
@@ -10,7 +10,7 @@ try { if (!window.values) VALUES = values; } catch {}
 function normalize(str) {
   return str
     .toLowerCase()
-    .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()'"“”‘’()\[\]]/g, "")
+    .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()'"""''()\[\]]/g, "")
     .replace(/\s{2,}/g, " ")
     .trim();
 }
@@ -51,8 +51,8 @@ function resolveAnswers(q) {
   if (!q) return [];
   if (Array.isArray(q.answers)) return q.answers.slice();
 
-  if (q.categoryKey && values[q.categoryKey]) {
-    const src = values[q.categoryKey];
+  if (q.categoryKey && VALUES[q.categoryKey]) {
+    const src = VALUES[q.categoryKey];
     if (Array.isArray(src)) return src.slice();
     if (src && typeof src === "object") {
       const keys = Object.keys(src);
@@ -74,6 +74,7 @@ let currentAnswers = [];
 let revealed = [];
 let currentQuestionText = "";
 let roundQuestions = [];
+let usedQuestionIndices = [];
 let score = 0;
 let roundNumber = 0;
 let totalpoints = 0;
@@ -93,12 +94,25 @@ function setFeedback(text, color) {
   if (color) fb.style.color = color;
 }
 
-// -------------------- Querying questions --------------------
-function getQuestionsByAnswerCount(min, max) {
-  return (QUESTIONS || []).filter((q) => {
-    const answers = resolveAnswers(q);
-    return answers.length >= min && answers.length <= max;
-  });
+// -------------------- Question Selection --------------------
+function getRandomUnusedQuestion() {
+  if (!Array.isArray(QUESTIONS) || QUESTIONS.length === 0) return null;
+  
+  // Get indices of unused questions
+  const availableIndices = [];
+  for (let i = 0; i < QUESTIONS.length; i++) {
+    if (!usedQuestionIndices.includes(i)) {
+      availableIndices.push(i);
+    }
+  }
+  
+  if (availableIndices.length === 0) return null;
+  
+  // Pick a random unused question
+  const randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
+  usedQuestionIndices.push(randomIndex);
+  
+  return QUESTIONS[randomIndex];
 }
 
 // -------------------- Round / Question Flow --------------------
@@ -107,14 +121,18 @@ function startRound() {
   totalpoints = 0;
   roundNumber = 0;
   currentIndex = 0;
+  usedQuestionIndices = [];
 
-  const q3to6 = getQuestionsByAnswerCount(1, Infinity);
-  const q7to15 = getQuestionsByAnswerCount(1, Infinity);
-  const q16plus = getQuestionsByAnswerCount(1, Infinity);
+  // Pick 3 random unique questions
+  roundQuestions = [];
+  for (let i = 0; i < 3; i++) {
+    const question = getRandomUnusedQuestion();
+    if (question) {
+      roundQuestions.push(question);
+    }
+  }
 
-  roundQuestions = [pickOne(q3to6), pickOne(q7to15), pickOne(q16plus)].filter(Boolean);
-
-  if (!Array.isArray(roundQuestions) || roundQuestions.length === 0) {
+  if (roundQuestions.length === 0) {
     const qEl = document.getElementById("question");
     if (qEl) qEl.textContent = "No playable questions found. Check your data.js.";
     console.error("No questions available. Ensure window.questions/window.values are defined.");
