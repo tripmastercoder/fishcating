@@ -95,7 +95,7 @@ function setFeedback(text, color) {
 
 // -------------------- Querying questions --------------------
 function getQuestionsByAnswerCount(min, max) {
-  return (questions || []).filter((q) => {
+  return (QUESTIONS || []).filter((q) => {
     const answers = resolveAnswers(q);
     return answers.length >= min && answers.length <= max;
   });
@@ -296,7 +296,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Validate data presence
-  if (!Array.isArray(questions) || questions.length === 0) {
+  if (!Array.isArray(QUESTIONS) || QUESTIONS.length === 0) {
     const qEl = document.getElementById("question");
     if (qEl) qEl.textContent = "Error: No questions loaded. Is data.js included before game.js?";
     console.error("questions[] missing. Ensure <script src='data.js'></script> appears before game.js and defines window.questions.");
