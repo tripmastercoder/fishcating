@@ -5,67 +5,25 @@ var questions = [
   // --- Category-based questions converted ---
   // Cities
   { text: 'Largest cities in France', answers: ['Paris', 'Marseille', 'Lyon', 'Toulouse', 'Nice', 'Nantes', 'Montpellier', 'Strasbourg', 'Bordeaux', 'Lille'] },
-  { text: 'Largest cities in Japan', answers: ['Tokyo', 'Yokohama', 'Osaka', 'Nagoya', 'Sapporo', 'Kobe', 'Kyoto', 'Fukuoka', 'Kawasaki', 'Saitama'] },
-  { text: 'Largest cities in Brazil', answers: ['Sao Paulo', 'Rio de Janeiro', 'Brasalia', 'Fortaleza', 'Salvador', 'Belo Horizonte', 'Manaus', 'Curitiba', 'Recife', 'Goiania'] },
-  { text: 'Largest cities in Canada', answers: ['Toronto', 'Montreal', 'Vancouver', 'Calgary', 'Edmonton', 'Ottawa–Gatineau', 'Winnipeg', 'Quebec City', 'Hamilton', 'Kitchener'] },
-  { text: 'Largest cities in India', answers: ['Mumbai', 'Delhi', 'Bengaluru', 'Hyderabad', 'Ahmedabad', 'Chennai', 'Kolkata', 'Surat', 'Pune', 'Jaipur'] },
+  { text: 'Largest cities in Canada', answers: ['Toronto', 'Montreal', 'Vancouver', 'Calgary', 'Edmonton', 'Winnipeg'] },
   { text: 'Largest cities in USA', answers: ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego', 'Dallas', 'Jacksonville'] },
-  { text: 'Largest cities in Australia', answers: ['Melbourne', 'Sydney', 'Brisbane', 'Perth', 'Adelaide', 'Gold Coast–Tweed Heads', 'Newcastle–Maitland', 'Canberra–Queanbeyan', 'Sunshine Coast', 'Central Coast'] },
-  { text: 'Largest cities in Egypt', answers: ['Cairo', 'Alexandria', 'Giza', 'Shubra El Kheima', 'Port Said', 'Suez', 'Mansoura', 'El Mahalla El Kubra', 'Tanta', 'Asyut'] },
-  { text: 'Largest cities in Mexico', answers: ['Mexico City', 'Tijuana', 'Ecatepec', 'León', 'Puebla', 'Ciudad Juárez', 'Guadalajara', 'Monterrey', 'Nezahualcóyotl', 'Zapopan'] },
-  { text: 'Largest cities in Germany', answers: ['Berlin', 'Hamburg', 'Munich', 'Cologne', 'Frankfurt am Main', 'Stuttgart', 'Düsseldorf', 'Leipzig', 'Dortmund', 'Essen'] },
 
   // Countries
-  { text: 'European countries', answers: ['Albania', 'Andorra', 'Armenia', 'Austria', 'Azerbaijan', 'Belarus', 'Belgium', 'Bosnia and Herzegovina', 'Bulgaria', 'Croatia', 'Cyprus', 'Czech Republic', 'Denmark', 'Estonia', 'Finland', 'Former Yugoslav Republic of Macedonia', 'France', 'Georgia', 'Germany', 'Greece', 'Hungary', 'Iceland', 'Ireland', 'Italy', 'Kosovo', 'Latvia', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Malta', 'Moldova', 'Monaco', 'Montenegro', 'Netherlands', 'Norway', 'Poland', 'Portugal', 'Romania', 'Russia', 'San Marino', 'Serbia', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'Switzerland', 'Turkey', 'Ukraine', 'United Kingdom'] },
+  { text: 'Countries in countries', answers: ['Albania', 'Andorra', 'Armenia', 'Austria', 'Azerbaijan', 'Belarus', 'Belgium', 'Bosnia and Herzegovina', 'Bulgaria', 'Croatia', 'Cyprus', 'Czech Republic', 'Denmark', 'Estonia', 'Finland', 'Former Yugoslav Republic of Macedonia', 'France', 'Georgia', 'Germany', 'Greece', 'Hungary', 'Iceland', 'Ireland', 'Italy', 'Kosovo', 'Latvia', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Malta', 'Moldova', 'Monaco', 'Montenegro', 'Netherlands', 'Norway', 'Poland', 'Portugal', 'Romania', 'Russia', 'San Marino', 'Serbia', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'Switzerland', 'Turkey', 'Ukraine', 'United Kingdom'] },
   { text: 'Asian countries', answers: ['Afghanistan', 'Armenia', 'Azerbaijan', 'Bahrain', 'Bangladesh', 'Bhutan', 'Brunei', 'Cambodia', 'China', 'Cyprus', 'Georgia', 'India', 'Indonesia', 'Iran', 'Iraq', 'Israel', 'Japan', 'Jordan', 'Kazakhstan', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Lebanon', 'Malaysia', 'Maldives', 'Mongolia', 'Myanmar', 'Nepal', 'North Korea', 'Oman', 'Pakistan', 'Palestine', 'Philippines', 'Qatar', 'Russia', 'Saudi Arabia', 'Singapore', 'South Korea', 'Sri Lanka', 'Syria', 'Taiwan', 'Tajikistan', 'Thailand', 'Timor-Leste', 'Turkey', 'Turkmenistan', 'United Arab Emirates (UAE)', 'Uzbekistan', 'Vietnam', 'Yemen'] },
   { text: 'African countries', answers: ['Algeria', 'Angola', 'Benin', 'Botswana', 'Burkina Faso', 'Burundi', 'Cabo Verde', 'Cameroon', 'Central African Republic', 'Chad', 'Comoros', 'Congo, Democratic Republic of the', 'Congo, Republic of the', "Cote d'Ivoire", 'Djibouti', 'Egypt', 'Equatorial Guinea', 'Eritrea', 'Eswatini', 'Ethiopia', 'Gabon', 'Gambia', 'Ghana', 'Guinea', 'Guinea-Bissau', 'Kenya', 'Lesotho', 'Liberia', 'Libya', 'Madagascar', 'Malawi', 'Mali', 'Mauritania', 'Mauritius', 'Morocco', 'Mozambique', 'Namibia', 'Niger', 'Nigeria', 'Rwanda', 'Sao Tome and Principe', 'Senegal', 'Seychelles', 'Sierra Leone', 'Somalia', 'South Africa', 'South Sudan', 'Sudan', 'Tanzania', 'Togo', 'Tunisia', 'Uganda', 'Zambia', 'Zimbabwe'] },
   { text: 'Oceania countries', answers: ['Australia', 'Fiji', 'Kiribati', 'Marshall Islands', 'Micronesia', 'Nauru', 'New Zealand', 'Palau', 'Papua New Guinea', 'Samoa', 'Solomon Islands'] },
-
-  // Actors
-  { text: 'Films starring Tom Hanks', answers: ['Forrest Gump', 'Saving Private Ryan', 'Cast Away', 'Big', 'Philadelphia', 'Toy Story', 'The Green Mile', 'Apollo 13', 'Catch Me If You Can', 'Sleepless in Seattle'] },
-  { text: 'Films starring Meryl Streep', answers: ['The Devil Wears Prada', 'Sophies Choice', 'Kramer vs. Kramer', 'Mamma Mia!', 'Doubt', 'The Iron Lady', 'Out of Africa', 'Julie & Julia', 'Into the Woods', 'The Bridges of Madison County'] },
-  { text: 'Films starring Leonardo DiCaprio', answers: ['Titanic', 'Inception', 'The Wolf of Wall Street', 'The Revenant', 'Shutter Island', 'Catch Me If You Can', 'Django Unchained', 'Once Upon a Time in Hollywood', 'The Great Gatsby', 'Gangs of New York'] },
-  { text: 'Films starring Denzel Washington', answers: ['Training Day', 'Malcolm X', 'Glory', 'Remember the Titans', 'Fences', 'The Equalizer', 'Flight', 'Inside Man', 'The Hurricane', 'American Gangster'] },
 
   // Directors
   { text: 'Films directed by Steven Spielberg', answers: ['Jaws', 'E.T.', 'Jurassic Park', 'Schindlers List', 'Saving Private Ryan', 'Close Encounters of the Third Kind', 'Indiana Jones Raiders of the Lost Ark', 'Catch Me If You Can', 'Minority Report', 'Lincoln'] },
   { text: 'Films directed by Martin Scorsese', answers: ['Taxi Driver', 'Goodfellas', 'The Irishman', 'Raging Bull', 'The Departed', 'Casino', 'Shutter Island', 'Gangs of New York', 'Hugo'] },
   { text: 'Films directed by Christopher Nolan', answers: ['Inception', 'The Dark Knight', 'Interstellar', 'Memento', 'Dunkirk', 'The Prestige', 'Batman Begins', 'Tenet'] },
 
-  // Films by cast
-  { text: 'Actors in Pulp Fiction', answers: ['Amanda Plummer', 'Bruce Willis', 'Christopher Walken', 'Eric Stoltz', 'Harvey Keitel', 'John Travolta', 'Maria de Medeiros', 'Rosanna Arquette', 'Samuel L. Jackson', 'Tim Roth', 'Uma Thurman', 'Ving Rhames'] },
-  { text: 'Actors in The Dark Knight', answers: ['Aaron Eckhart', 'Christian Bale', 'Gary Oldman', 'Heath Ledger', 'Maggie Gyllenhaal', 'Michael Caine', 'Morgan Freeman'] },
-  { text: 'Actors in Inception', answers: ['Cillian Murphy', 'Elliot Page', 'Joseph Gordon-Levitt', 'Leonardo DiCaprio', 'Marion Cotillard', 'Michael Caine', 'Ken Watanabe', 'Tom Berenger', 'Tom Hardy'] },
-  { text: 'Actors in Titanic', answers: ['Leonardo DiCaprio', 'Kate Winslet', 'Billy Zane', 'Kathy Bates', 'Frances Fisher', 'Bill Paxton', 'Danny Nucci', 'Jonathan Hyde', 'Gloria Stuart'] },
-  { text: 'Actors in Forrest Gump', answers: ['Tom Hanks', 'Robin Wright', 'Gary Sinise', 'Mykelti Williamson', 'Sally Field', 'Michael Conner Humphreys'] },
-  { text: 'Actors in The Matrix', answers: ['Keanu Reeves', 'Laurence Fishburne', 'Carrie-Anne Moss', 'Hugo Weaving', 'Joe Pantoliano', 'Gloria Foster'] },
-  { text: 'Actors in The Lord of the Rings: The Fellowship of the Ring', answers: ['Elijah Wood', 'Ian McKellen', 'Viggo Mortensen', 'Orlando Bloom', 'Sean Astin', 'Cate Blanchett', 'Liv Tyler', 'John Rhys-Davies', 'Billy Boyd', 'Dominic Monaghan'] },
-  { text: 'Actors in Gladiator', answers: ['Russell Crowe', 'Joaquin Phoenix', 'Connie Nielsen', 'Oliver Reed', 'Richard Harris', 'Derek Jacobi', 'Djimon Hounsou', 'Tommy Flanagan'] },
-  { text: 'Actors in The Avengers', answers: ['Robert Downey Jr.', 'Chris Evans', 'Mark Ruffalo', 'Chris Hemsworth', 'Scarlett Johansson', 'Jeremy Renner', 'Tom Hiddleston', 'Clark Gregg', 'Cobie Smulders'] },
-  { text: 'Actors in Jurassic Park', answers: ['Sam Neill', 'Laura Dern', 'Jeff Goldblum', 'Richard Attenborough', 'Bob Peck', 'Martin Ferrero', 'BD Wong'] },
-
-  // TV Shows
-  { text: 'Cast of Breaking Bad', answers: ['Aaron Paul', 'Anna Gunn', 'Betsy Brandt', 'Bob Odenkirk', 'Bryan Cranston', 'Dean Norris', 'Giancarlo Esposito', 'Jonathan Banks', 'Jesse Plemons', 'Laura Fraser', 'RJ Mitte'] },
-  { text: 'Cast of The Office (US)', answers: ['Amy Ryan', 'Angela Kinsey', 'B. J. Novak', 'Brian Baumgartner', 'Catherine Tate', 'Clark Duke', 'Craig Robinson', 'Creed Bratton', 'David Denman', 'Ed Helms', 'Ellie Kemper', 'Jake Lacy', 'James Spader', 'Jenna Fischer', 'John Krasinski', 'Kate Flannery', 'Leslie David Baker', 'Melora Hardin', 'Mindy Kaling', 'Oscar Nunez', 'Paul Lieberstein', 'Phyllis Smith', 'Rainn Wilson', 'Steve Carell', 'Zach Woods'] },
-  { text: 'Cast of Game of Thrones', answers: ['Emilia Clarke', 'Kit Harington', 'Peter Dinklage', 'Lena Headey', 'Nikolaj Coster-Waldau', 'Sophie Turner', 'Maisie Williams', 'Iain Glen', 'Alfie Allen', 'Gwendoline Christie'] },
-  { text: 'Cast of Friends', answers: ['Jennifer Aniston', 'Courteney Cox', 'Lisa Kudrow', 'Matt LeBlanc', 'Matthew Perry', 'David Schwimmer'] },
-  { text: 'Cast of Stranger Things', answers: ['Winona Ryder', 'David Harbour', 'Millie Bobby Brown', 'Finn Wolfhard', 'Gaten Matarazzo', 'Caleb McLaughlin', 'Natalia Dyer', 'Charlie Heaton', 'Cara Buono', 'Noah Schnapp'] },
-  { text: 'Cast of The Crown', answers: ['Olivia Colman', 'Tobias Menzies', 'Helena Bonham Carter', 'Josh OConnor', 'Emma Corrin', 'Gillan Anderson', 'Imelda Staunton'] },
-  { text: 'Cast of The Mandalorian', answers: ['Pedro Pascal', 'Gina Carano', 'Carl Weathers', 'Giancarlo Esposito', 'Emily Swallow', 'Katee Sackhoff'] },
-  { text: 'Cast of The Simpsons', answers: ['Dan Castellaneta', 'Julie Kavner', 'Nancy Cartwright', 'Yeardley Smith', 'Hank Azaria', 'Harry Shearer'] },
-  { text: 'Cast of Sherlock', answers: ['Benedict Cumberbatch', 'Martin Freeman', 'Una Stubbs', 'Rupert Graves', 'Louise Brealey', 'Mark Gatiss'] },
-  { text: 'Cast of The West Wing', answers: ['Martin Sheen', 'Rob Lowe', 'Allison Janney', 'Bradley Whitford', 'Richard Schiff', 'John Spencer', 'Janel Moloney', 'Stockard Channing'] },
-
   // Emmy Shows
   { text: '21st Century Emmy-winning shows', answers: ['The West Wing', 'The Sopranos', 'Lost', 'Mad Men', 'Breaking Bad', 'Homeland', 'Game of Thrones', 'Veep', 'The Handmaids Tale', 'Succession'] },
 
   // Game of the Year
   { text: 'Game of the Year winners', answers: ['2003: Star Wars: Knights of the Old Republic', '2004: Half-Life 2', '2005: Resident Evil 4', '2006: Gears of War', '2007: BioShock'] },
-
-  // Top Grossing Games
-  { text: 'Top 10 grossing games on PlayStation', answers: ['Gran Turismo', 'Final Fantasy VII', 'Final Fantasy VIII', 'Gran Turismo 2', 'Tekken 3', 'Final Fantasy IX', 'Metal Gear Solid', 'Crash Bandicoot 3: Warped', 'Tomb Raider', 'Resident Evil 3: Nemesis'] },
-  { text: 'Top 10 grossing games on Xbox', answers: ['Halo 2', 'Halo: Combat Evolved', 'Fable', 'Grand Theft Auto: San Andreas', 'Tom Clancys Splinter Cell', 'The Elder Scrolls III: Morrowind', 'Grand Theft Auto III', 'Grand Theft Auto: Vice City', 'Need for Speed: Underground 2', 'Madden NFL 2005'] },
-  { text: 'Top 10 grossing games on Nintendo Switch', answers: ['Mario Kart 8 Deluxe', 'Animal Crossing: New Horizons', 'Super Smash Bros. Ultimate', 'The Legend of Zelda: Breath of the Wild', 'Super Mario Odyssey', 'Pokémon Sword and Shield', 'Pokémon Scarlet and Violet', 'The Legend of Zelda: Tears of the Kingdom', 'Super Mario Party', 'New Super Mario Bros. U Deluxe'] },
 
   // Simple questions
   { text: 'Primary colours', answers: ['Red', 'Blue', 'Green'] },
